@@ -1,0 +1,10 @@
+name = "CDC Games"
+description = "CheekDotCom Software Games template"
+core = 6.x
+engine = phptemplate
+stylesheets[all][] = style.css
+stylesheets[all][] = tenbyfive_regular.css
+; stylesheets[all][] = tenby-five-light.css
+
+version = "6.x-0.01"
+core = "6.x"
