@@ -465,6 +465,20 @@ function _has_equipment($game_user, $id, $quantity) {
 }
 
 
+function _has_clan_equipment($game_user, $id, $quantity) {
+
+  $sql = 'SELECT quantity
+    FROM clan_equipment_ownership
+    WHERE fkey_clans_id = %d
+    AND fkey_equipment_id = %d;';
+  $result = db_query($sql, $game_user->fkey_clans_id, $id);
+  $item = db_fetch_object($result);
+
+  return ($item->quantity > $quantity);
+
+}
+
+
 function _show_land($game_user, $item, $options = array()) {
 
   global $game, $phone_id;
