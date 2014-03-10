@@ -451,6 +451,20 @@ function _has_sent_message($game_user) {
 }
 
 
+function _has_equipment($game_user, $id, $quantity) {
+
+  $sql = 'SELECT quantity
+    FROM equipment_ownership
+    WHERE fkey_users_id = %d
+    AND fkey_equipment_id = %d;';
+  $result = db_query($sql, $game_user->id, $id);
+  $item = db_fetch_object($result);
+
+  return ($item->quantity > $quantity);
+
+}
+
+
 function _show_land($game_user, $item, $options = array()) {
 
   global $game, $phone_id;
