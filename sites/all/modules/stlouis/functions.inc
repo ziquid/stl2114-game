@@ -1,5 +1,5 @@
 <?php
-// $Id$ 
+// $Id$
 
 
 function _button($link = 'home', $type = 'continue', $extra_link = '') {
@@ -122,6 +122,43 @@ function _required_equipment($game_user, $equipment_id, $req_quantity) {
 
   echo <<< EOF
 <div class="quest-required_stuff">Requires
+  <div class="quest-required_equipment">
+    $a_start
+      <img class="$not_yet"
+        src="/sites/default/files/images/equipment/$game-$equipment_id.png"
+        width="48">
+    $a_end
+  </div>&nbsp;x$req_quantity
+</div>
+EOF;
+
+}
+
+
+function _clan_required_equipment($game_user, $equipment_id, $req_quantity) {
+
+  global $game;
+  $arg2 = check_plain(arg(2));
+  include(drupal_get_path('module', $game) . '/game_defs.inc');
+
+  $sql = 'select quantity from clan_equipment_ownership
+    where fkey_equipment_id = %d and fkey_clans_id = %d;';
+  $result = db_query($sql, $equipment_id, $game_user->fkey_clans_id);
+  $quantity = db_fetch_object($result);
+
+  if ($quantity->quantity >= $req_quantity) {
+
+    $not_yet = $a_start = $a_end = '';
+
+  } else {
+
+    $a_start = $a_end = '';
+    $not_yet = 'not-yet';
+
+  }
+
+  echo <<< EOF
+<div class="quest-required_stuff">Clan $equipment Required
   <div class="quest-required_equipment">
     $a_start
       <img class="$not_yet"
@@ -1130,6 +1167,10 @@ EOF;
     if ($item->equipment_3_required_quantity > 0)
       _required_equipment($game_user, $item->fkey_equipment_3_required_id,
         $item->equipment_3_required_quantity);
+
+    if ($item->clan_equipment_1_required_quantity > 0)
+      _clan_required_equipment($game_user, $item->fkey_clan_equipment_1_required_id,
+        $item->clan_equipment_1_required_quantity);
 
 // required staff
 
