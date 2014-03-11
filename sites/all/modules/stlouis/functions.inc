@@ -460,7 +460,7 @@ function _has_equipment($game_user, $id, $quantity) {
   $result = db_query($sql, $game_user->id, $id);
   $item = db_fetch_object($result);
 
-  return ($item->quantity > $quantity);
+  return ($item->quantity >= $quantity);
 
 }
 
@@ -474,7 +474,7 @@ function _has_clan_equipment($game_user, $id, $quantity) {
   $result = db_query($sql, $game_user->fkey_clans_id, $id);
   $item = db_fetch_object($result);
 
-  return ($item->quantity > $quantity);
+  return ($item->quantity >= $quantity);
 
 }
 
