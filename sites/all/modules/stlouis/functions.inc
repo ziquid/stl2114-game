@@ -821,6 +821,7 @@ EOF;
     if (empty($current)) echo <<< EOF
   <div class="land-button-wrapper">
     $apply_button
+  </div>
 EOF;
 
   } // job or inv
