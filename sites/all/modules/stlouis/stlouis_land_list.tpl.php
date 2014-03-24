@@ -14,24 +14,27 @@
   $fetch_header($game_user);
   _show_aides_menu($game_user);
 
-  $sql_to_add = 'WHERE ((
+  $sql_to_add = 'WHERE (((
       fkey_neighborhoods_id = 0
       OR fkey_neighborhoods_id = %d
-    ) 
-    
+    )
+
     AND
-    
+
     (
       fkey_values_id = 0
       OR fkey_values_id = %d
     ))
-  
-    AND required_level <= %d
-    AND active = 1';
+
+      AND required_level <= %d
+      AND active = 1
+    )
+
+    OR land_ownership.quantity > 0 ';
 
   if ($game_user->phone_id == 'abc123')
     $sql_to_add = '';
-    
+
   $data = array();
   $sql = 'SELECT land.*, land_ownership.quantity,
     competencies.name as competency
@@ -49,7 +52,7 @@
     $game_user->fkey_values_id, $game_user->level);
 
   while ($item = db_fetch_object($result)) $data[] = $item;
-  
+
   foreach ($data as $item) {
 firep($item);
 
@@ -62,26 +65,26 @@ firep($item);
 
   if (substr($phone_id, 0, 3) == 'ai-')
     echo "<!--\n<ai \"$ai_output\"/>\n-->";
-  
+
 // show next one
   $sql = 'SELECT land.*, land_ownership.quantity
     FROM land
-    
+
     LEFT OUTER JOIN land_ownership ON land_ownership.fkey_land_id = land.id
     AND land_ownership.fkey_users_id = %d
 
     WHERE ((
       fkey_neighborhoods_id = 0
       OR fkey_neighborhoods_id = %d
-    ) 
-    
+    )
+
     AND
-    
+
     (
       fkey_values_id = 0
       OR fkey_values_id = %d
     ))
-  
+
     AND required_level > %d
     AND active = 1
     ORDER BY required_level ASC LIMIT 1';
@@ -92,5 +95,5 @@ firep($item);
 firep($item);
 
   if (!empty($item)) _show_land($game_user, $item, array('soon' => TRUE));
-  
+
   db_set_active('default');

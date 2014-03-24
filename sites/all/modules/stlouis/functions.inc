@@ -584,6 +584,99 @@ function _show_land($game_user, $item, $options = array()) {
   if ((($payout % 1000) == 0) && ($payout > 0))
     $payout = ($payout / 1000) . 'K';
 
+  $can_buy = $can_sell = TRUE;
+
+  if ($item->fkey_neighborhoods_id != 0 &&
+    $item->fkey_neighborhoods_id != $game_user->fkey_neighborhoods_id)
+    $can_buy = FALSE;
+
+  if ($item->fkey_values_id != 0 &&
+    $item->fkey_values_id != $game_user->fkey_values_id)
+    $can_buy = FALSE;
+
+  if ($item->required_level > $game_user->level)
+    $can_buy = FALSE;
+
+  if ($item->active != 1)
+    $can_buy = FALSE;
+
+  if ($item->is_loot != 0)
+    $can_buy = FALSE;
+
+  if ($item->can_sell != 1)
+    $can_sell = FALSE;
+
+  if ($item->quantity < 1)
+    $can_sell = FALSE;
+
+  if ($can_buy) {
+    $icon_button = <<< EOF
+<a href="/$game/land_buy/$arg2/$item->id/1">
+  <img src="/sites/default/files/images/land/$game-$item->id.png?2" width="96"
+    border="0">
+</a>
+EOF;
+    $name_link = <<< EOF
+<a href="/$game/land_buy/$arg2/$item->id/1">
+  <span class="type">
+    $inactive $current $item->type:
+  </span>
+  $item->name
+</a>
+EOF;
+    $buy_button = <<< EOF
+<div class="land-buy-button">
+  <a href="/$game/land_buy/$arg2/$item->id/1">
+    Buy
+  </a>
+</div>
+EOF;
+    $apply_button = <<< EOF
+<div class="land-buy-button">
+  <a href="/$game/land_buy/$arg2/$item->id/1">
+    Buy
+  </a>
+</div>
+EOF;
+  } else {
+    $icon_button = <<< EOF
+  <img src="/sites/default/files/images/land/$game-$item->id.png?2" width="96"
+    border="0">
+EOF;
+    $name_link = <<< EOF
+<span class="type">
+  $inactive $current $item->type:
+</span>
+$item->name
+EOF;
+    $buy_button = <<< EOF
+<div class="land-buy-button not-yet">
+  Can't Buy
+</div>
+EOF;
+    $apply_button = <<< EOF
+<div class="land-buy-button not-yet">
+  Can't Apply
+</div>
+EOF;
+  }
+
+  if ($can_sell) {
+    $sell_button = <<< EOF
+<div class="land-sell-button">
+  <a href="/$game/land_sell/$arg2/$item->id/1">
+    Sell
+  </a>
+</div>
+EOF;
+  } else {
+    $sell_button = <<< EOF
+<div class="land-sell-button not-yet">
+  Can't Sell
+</div>
+EOF;
+  }
+
   if ($item->type == 'job' && $item->quantity > 0) $current = '◊ ' .
     t('Current');
 
@@ -611,17 +704,11 @@ EOF;
 <div class="land $failed">
   $header
   <div class="land-icon">
-    <a href="/$game/land_buy/$arg2/$item->id/1">
-      <img src="/sites/default/files/images/land/$game-$item->id.png?2"
-        width=96 border="0">
-    </a>
+    $icon_button
   </div>
   <div class="land-details">
     <div class="land-name">
-      <a href="/$game/land_buy/$arg2/$item->id/1">
-        <span class="type">$inactive $current $item->type:</span>
-        $item->name
-      </a>
+      $name_link
     </div>
     <div class="land-description">&laquo; $description &raquo;</div>
 EOF;
@@ -722,12 +809,8 @@ EOF;
 
       echo <<< EOF
   <div class="land-button-wrapper">
-    <div class="land-buy-button">
-      <a href="/$game/land_buy/$arg2/$item->id/1">Buy</a>
-    </div>
-    <div class="land-sell-button">
-      <a href="/$game/land_sell/$arg2/$item->id/1">Sell</a>
-    </div>
+    $buy_button
+    $sell_button
   </div>
 EOF;
 
@@ -737,10 +820,7 @@ EOF;
 
     if (empty($current)) echo <<< EOF
   <div class="land-button-wrapper">
-    <div class="land-buy-button">
-      <a href="/$game/land_buy/$arg2/$item->id/1">Apply</a>
-    </div>
-  </div>
+    $apply_button
 EOF;
 
   } // job or inv
