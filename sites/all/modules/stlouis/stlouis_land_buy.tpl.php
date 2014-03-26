@@ -138,9 +138,6 @@ firep($game_land);
 
   if ($options['land-buy-succeeded'] == 'buy-success') {
 
-//    $game_user->money -= $game_land->price;
-//    $game_user->income += $game_land->payout;
-
     if ($game_land->type == 'job') { // job?  delete other job(s)
 
       $sql = 'DELETE FROM  `land_ownership` WHERE id IN (
@@ -164,43 +161,13 @@ firep($game_land);
 
     }
 
-    if ($game_land->quantity == '') { // no record exists - insert one
-
-      $sql = 'insert into land_ownership (fkey_land_id, fkey_users_id, quantity)
-        values (%d, %d, %d);';
-firep("$sql, $land_id, $game_user->id, $quantity");
-      $result = db_query($sql, $land_id, $game_user->id, $quantity);
-
-    } else { // existing record - update it
-
-      $sql = 'update land_ownership set quantity = quantity + %d where
-        fkey_land_id = %d and fkey_users_id = %d;';
-firep("$sql, $quantity, $land_id, $game_user->id");
-      $result = db_query($sql, $quantity, $land_id, $game_user->id);
-
-    } // insert or update record
-
-    $sql = 'update users set money = money - %d, income = income + %d
-      where id = %d;';
-    $result = db_query($sql, $land_price, $game_land->payout * $quantity,
-      $game_user->id);
-
-    if (substr($game_user->income_next_gain, 0, 4) == '0000') { // start the income clock if needed
-
-       $sql = 'update users set income_next_gain = "%s" where id = %d;';
-      $result = db_query($sql, date('Y-m-d H:i:s', time() + 3600),
-         $game_user->id);
-
-    }
-
-    _recalc_income($game_user);
-    $game_user = $fetch_user(); // reprocess user object
+    land_gain($game_user, $land_id, $quantity, $land_price);
 
   } else { // failed
 
     $quantity = 0;
 
-  } // buy land succeeded
+  } // buy land succeeded?
 
 
 // time to show the stuff!

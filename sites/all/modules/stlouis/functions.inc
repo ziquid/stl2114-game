@@ -1735,6 +1735,113 @@ function equipment_lose(&$game_user, $id, $quantity) {
 }
 
 
+function land_gain(&$game_user, $id, $quantity, $ex_price = 0) {
+
+  $sql = 'select * from land where id = %d;';
+  $result = db_query($sql, $id);
+  $land = db_fetch_object($result);
+
+  $sql = 'select * from land_ownership
+    where fkey_land_id = %d and fkey_users_id = %d;';
+  $result = db_query($sql, $id, $game_user->id);
+  $lo = db_fetch_object($result);
+
+  if (!empty($lo)) { // lo entry already there
+
+    $sql = 'update land_ownership set quantity = quantity + %d
+      where fkey_land_id = %d and fkey_users_id = %d;';
+    $result = db_query($sql, $quantity, $id, $game_user->id);
+
+  } else {
+
+    $sql = 'insert into land_ownership
+      (fkey_users_id, fkey_land_id, quantity) values
+      (%d, %d, %d);';
+    $result = db_query($sql, $game_user->id, $id, $quantity);
+
+  }
+
+// process income
+  $sql = 'update users set income = income + %d where id = %d;';
+  $result = db_query($sql, ($land->payout * $quantity), $game_user->id);
+  $game_user->income += ($land->payout * $quantity);
+
+// start the income clock, if needed
+  if (substr($game_user->income_next_gain, 0, 4) == '0000') {
+
+    $sql = 'update users set income_next_gain = "%s" where id = %d;';
+    $result = db_query($sql, date('Y-m-d H:i:s', time() + 3600),
+      $game_user->id);
+
+    }
+
+// pay for the land, if needed
+  $sql = 'update users set money = money - %d
+    where id = %d;';
+  $result = db_query($sql, $ex_price, $game_user->id);
+
+  _recalc_income($game_user);
+  $game_user = $fetch_user(); // reprocess user object
+  return array(TRUE, 'success', 0);
+
+}
+
+
+function land_lose(&$game_user, $id, $quantity, $ex_price = 0) {
+
+  $sql = 'select * from land where id = %d;';
+  $result = db_query($sql, $id);
+  $land = db_fetch_object($result);
+
+  $sql = 'select * from land_ownership
+    where fkey_land_id = %d and fkey_users_id = %d;';
+  $result = db_query($sql, $id, $game_user->id);
+  $lo = db_fetch_object($result);
+
+
+  if (empty($lo)) return FALSE; // nothing there?
+  if ($lo->quantity < $quantity) return FALSE; // not enough?
+
+  if ($lo->quantity == $quantity) { // using all?  remove entry
+
+    $sql = 'delete from land_ownership
+      where fkey_users_id = %d and fkey_land_id = %d;';
+    $result = db_query($sql, $game_user->id, $id);
+
+  } else {
+
+    $sql = 'update land_ownership set quantity = quantity - %d
+      where fkey_land_id = %d and fkey_users_id = %d;';
+    $result = db_query($sql, $quantity, $id, $game_user->id);
+
+  }
+
+// process income
+  $sql = 'update users set income = income - %d where id = %d;';
+  $result = db_query($sql, ($land->payout * $quantity), $game_user->id);
+  $game_user->income -= ($land->payout * $quantity);
+
+// start the income clock, if needed
+  if (substr($game_user->income_next_gain, 0, 4) == '0000') {
+
+    $sql = 'update users set income_next_gain = "%s" where id = %d;';
+    $result = db_query($sql, date('Y-m-d H:i:s', time() + 3600),
+      $game_user->id);
+
+    }
+
+// receive pay for the land, if needed
+  $sql = 'update users set money = money + %d
+    where id = %d;';
+  $result = db_query($sql, $ex_price, $game_user->id);
+
+  _recalc_income($game_user);
+  $game_user = $fetch_user(); // reprocess user object
+  return array(TRUE, 'success', 0);
+
+}
+
+
 function competency_gain($game_user, $id, $quantity = 1) {
 
   if (gettype($id) == 'string') { // find id from string
