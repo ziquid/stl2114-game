@@ -1737,6 +1737,10 @@ function equipment_lose(&$game_user, $id, $quantity) {
 
 function land_gain(&$game_user, $id, $quantity, $ex_price = 0) {
 
+  global $game, $phone_id;
+
+  $fetch_user = '_' . $game . '_fetch_user';
+
   $sql = 'select * from land where id = %d;';
   $result = db_query($sql, $id);
   $land = db_fetch_object($result);
@@ -1788,6 +1792,10 @@ function land_gain(&$game_user, $id, $quantity, $ex_price = 0) {
 
 
 function land_lose(&$game_user, $id, $quantity, $ex_price = 0) {
+
+  global $game, $phone_id;
+
+  $fetch_user = '_' . $game . '_fetch_user';
 
   $sql = 'select * from land where id = %d;';
   $result = db_query($sql, $id);

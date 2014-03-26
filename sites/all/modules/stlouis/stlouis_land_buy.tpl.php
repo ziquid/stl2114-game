@@ -140,7 +140,7 @@ firep($game_land);
 
     if ($game_land->type == 'job') { // job?  delete other job(s)
 
-      $sql = 'DELETE FROM  `land_ownership` WHERE id IN (
+      $sql = 'DELETE FROM `land_ownership` WHERE id IN (
         SELECT id FROM (
           SELECT lo.id
           FROM land_ownership AS lo
