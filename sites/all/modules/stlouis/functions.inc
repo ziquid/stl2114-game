@@ -665,7 +665,7 @@ EOF;
     $apply_button = <<< EOF
 <div class="land-buy-button">
   <a href="/$game/land_buy/$arg2/$item->id/1">
-    Buy
+    Apply
   </a>
 </div>
 EOF;
@@ -1773,7 +1773,7 @@ function land_gain(&$game_user, $id, $quantity, $ex_price = 0) {
     $result = db_query($sql, date('Y-m-d H:i:s', time() + 3600),
       $game_user->id);
 
-    }
+  }
 
 // pay for the land, if needed
   $sql = 'update users set money = money - %d
@@ -1782,7 +1782,7 @@ function land_gain(&$game_user, $id, $quantity, $ex_price = 0) {
 
   _recalc_income($game_user);
   $game_user = $fetch_user(); // reprocess user object
-  return array(TRUE, 'success', 0);
+  return TRUE;
 
 }
 
@@ -1828,7 +1828,7 @@ function land_lose(&$game_user, $id, $quantity, $ex_price = 0) {
     $result = db_query($sql, date('Y-m-d H:i:s', time() + 3600),
       $game_user->id);
 
-    }
+  }
 
 // receive pay for the land, if needed
   $sql = 'update users set money = money + %d
@@ -1837,7 +1837,7 @@ function land_lose(&$game_user, $id, $quantity, $ex_price = 0) {
 
   _recalc_income($game_user);
   $game_user = $fetch_user(); // reprocess user object
-  return array(TRUE, 'success', 0);
+  return TRUE;
 
 }
 
