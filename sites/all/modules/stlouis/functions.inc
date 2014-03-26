@@ -555,6 +555,16 @@ function _show_land($game_user, $item, $options = array()) {
 
       break;
 
+    case 'failed not-enough-land':
+
+      $header = '<div class="title">' .
+        t('∆ Quantity <span>Insufficient</span> ∆') .
+        '</div>';
+
+      $failed = 'failed';
+
+      break;
+
     case 'failed not-required-competency':
 
       $header = '<div class="title">' .
@@ -590,7 +600,17 @@ function _show_land($game_user, $item, $options = array()) {
     case 'failed is-loot':
 
       $header = '<div class="title">' .
-        t('∆ Equipment <span>Unavailable</span> ∆') .
+        t('∆ Item <span>Unavailable</span> ∆') .
+        '</div>';
+
+      $failed = 'failed';
+
+      break;
+
+    case 'failed cant-sell':
+
+      $header = '<div class="title">' .
+        t('∆ Item <span>Unsalable</span> ∆') .
         '</div>';
 
       $failed = 'failed';
