@@ -24,19 +24,19 @@
   $sql = 'SELECT land.*, land_ownership.quantity,
     competencies.name as competency
     FROM land
-    
+
     LEFT OUTER JOIN land_ownership ON land_ownership.fkey_land_id = land.id
     AND land_ownership.fkey_users_id = %d
 
     LEFT OUTER JOIN competencies on land.fkey_required_competencies_id =
       competencies.id
-    
+
     WHERE land.id = %d;';
   $result = db_query($sql, $game_user->id, $land_id);
   $game_land = db_fetch_object($result); // limited to 1 in DB
   $orig_quantity = $count = $quantity;
   $land_price = 0;
-firep($game_land);    
+firep($game_land);
 
   while ($count--) {
 
@@ -48,22 +48,22 @@ firep($game_land);
   $options = array();
   $options['land-buy-succeeded'] = 'buy-success';
   $ai_output = 'land-succeeded';
-  
+
 // check to see if land prerequisites are met
 
 // not enough money
 
   if ($game_user->money < $land_price) {
-    
+
     $options['land-buy-succeeded'] = 'failed no-money';
     $ai_output = 'land-failed no-money';
-    
+
   }
-   
+
 // not high enough level
 
   if ($game_user->level < $game_land->required_level) {
-    
+
     $options['land-buy-succeeded'] = 'failed not-required-level';
     $ai_output = 'land-failed not-required-level';
     _karma($game_user,
@@ -87,10 +87,57 @@ firep($game_land);
 
   }
 
+// not in right hood
+
+  if ($game_land->fkey_neighborhoods_id != 0 &&
+    $game_land->fkey_neighborhoods_id != $game_user->fkey_neighborhoods_id) {
+
+    $options['land-buy-succeeded'] = 'failed not-required-hood';
+    $ai_output = 'land-failed not-required-hood';
+    _karma($game_user,
+      "trying to purchase $game_land->name in wrong hood", -50);
+
+  }
+
+// not required party
+
+  if ($game_land->fkey_values_id != 0 &&
+    $game_land->fkey_values_id != $game_user->fkey_values_id) {
+
+    $options['land-buy-succeeded'] = 'failed not-required-party';
+    $ai_output = 'land-failed not-required-value';
+    _karma($game_user,
+      "trying to purchase $game_land->name in wrong party", -50);
+
+  }
+
+// not active
+
+  if ($game_land->active != 1) {
+
+    $options['land-buy-succeeded'] = 'failed not-active';
+    $ai_output = 'land-failed not-active';
+    _karma($game_user,
+      "trying to purchase $game_land->name which is not active", -500);
+
+  }
+
+// is loot
+
+  if ($game_land->is_loot != 0) {
+
+    $options['land-buy-succeeded'] = 'failed is-loot';
+    $ai_output = 'land-failed is-loot';
+    _karma($game_user,
+      "trying to purchase $game_land->name which is loot", -25);
+
+  }
+
+
 // success!
 
   if ($options['land-buy-succeeded'] == 'buy-success') {
-    
+
 //    $game_user->money -= $game_land->price;
 //    $game_user->income += $game_land->payout;
 
@@ -118,21 +165,21 @@ firep($game_land);
     }
 
     if ($game_land->quantity == '') { // no record exists - insert one
-      
+
       $sql = 'insert into land_ownership (fkey_land_id, fkey_users_id, quantity)
         values (%d, %d, %d);';
 firep("$sql, $land_id, $game_user->id, $quantity");
       $result = db_query($sql, $land_id, $game_user->id, $quantity);
-      
+
     } else { // existing record - update it
-      
+
       $sql = 'update land_ownership set quantity = quantity + %d where
         fkey_land_id = %d and fkey_users_id = %d;';
 firep("$sql, $quantity, $land_id, $game_user->id");
       $result = db_query($sql, $quantity, $land_id, $game_user->id);
-      
+
     } // insert or update record
-    
+
     $sql = 'update users set money = money - %d, income = income + %d
       where id = %d;';
     $result = db_query($sql, $land_price, $game_land->payout * $quantity,
@@ -143,16 +190,16 @@ firep("$sql, $quantity, $land_id, $game_user->id");
        $sql = 'update users set income_next_gain = "%s" where id = %d;';
       $result = db_query($sql, date('Y-m-d H:i:s', time() + 3600),
          $game_user->id);
-      
+
     }
 
     _recalc_income($game_user);
     $game_user = $fetch_user(); // reprocess user object
-    
+
   } else { // failed
-    
+
     $quantity = 0;
-    
+
   } // buy land succeeded
 
 
@@ -162,9 +209,9 @@ firep("$sql, $quantity, $land_id, $game_user->id");
   _show_aides_menu($game_user);
 
   $game_land->quantity = $game_land->quantity + (int) $quantity;
-  
+
   _show_land($game_user, $game_land, $options);
-    
+
   echo <<< EOF
 <div class="title">
   Available $land_plural
@@ -173,61 +220,68 @@ EOF;
 
   if (substr($phone_id, 0, 3) == 'ai-')
     echo "<!--\n<ai \"$ai_output\"/>\n-->";
-    
+
   $data = array();
   $sql = 'SELECT land.*, land_ownership.quantity
     FROM land
-    
+
     LEFT OUTER JOIN land_ownership ON land_ownership.fkey_land_id = land.id
     AND land_ownership.fkey_users_id = %d
 
-    WHERE ((
+    WHERE (((
       fkey_neighborhoods_id = 0
       OR fkey_neighborhoods_id = %d
-    ) 
-    
+    )
+
     AND
-    
+
     (
       fkey_values_id = 0
       OR fkey_values_id = %d
     ))
-  
-    AND required_level <= %d
-    AND active =1
+
+      AND required_level <= %d
+      AND active = 1
+    )
+
+    OR land_ownership.quantity > 0
+
     ORDER BY required_level ASC';
   $result = db_query($sql, $game_user->id, $game_user->fkey_neighborhoods_id,
     $game_user->fkey_values_id, $game_user->level);
 
   while ($item = db_fetch_object($result)) $data[] = $item;
-  
+
   foreach ($data as $item) {
 
     _show_land($game_user, $item);
 
   }
-  
+
+  if (substr($phone_id, 0, 3) == 'ai-')
+    echo "<!--\n<ai \"$ai_output\"/>\n-->";
+
 // show next one
   $sql = 'SELECT land.*, land_ownership.quantity
     FROM land
-    
+
     LEFT OUTER JOIN land_ownership ON land_ownership.fkey_land_id = land.id
     AND land_ownership.fkey_users_id = %d
 
     WHERE ((
       fkey_neighborhoods_id = 0
       OR fkey_neighborhoods_id = %d
-    ) 
-    
+    )
+
     AND
-    
+
     (
       fkey_values_id = 0
       OR fkey_values_id = %d
     ))
-  
+
     AND required_level > %d
-    AND active =1
+    AND active = 1
     ORDER BY required_level ASC LIMIT 1';
   $result = db_query($sql, $game_user->id, $game_user->fkey_neighborhoods_id,
     $game_user->fkey_values_id, $game_user->level);
@@ -235,5 +289,5 @@ EOF;
   $item = db_fetch_object($result);
 
   if (!empty($item)) _show_land($game_user, $item, array('soon' => TRUE));
-  
+
   db_set_active('default');

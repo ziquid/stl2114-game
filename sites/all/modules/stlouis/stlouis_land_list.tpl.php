@@ -54,7 +54,7 @@
   while ($item = db_fetch_object($result)) $data[] = $item;
 
   foreach ($data as $item) {
-firep($item);
+// firep($item);
 
     _show_land($game_user, $item);
 
@@ -92,7 +92,7 @@ firep($item);
     $game_user->fkey_values_id, $game_user->level);
 
   $item = db_fetch_object($result);
-firep($item);
+// firep($item);
 
   if (!empty($item)) _show_land($game_user, $item, array('soon' => TRUE));
 

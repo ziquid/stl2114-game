@@ -528,7 +528,7 @@ function _show_land($game_user, $item, $options = array()) {
             array('@value' => $game_user->values)) . '
         </div>
         <div class="try-an-election-wrapper">
-          <div  class="try-an-election">
+          <div class="try-an-election">
             <a href="/' . $game . '/elders_do_fill/' . $arg2 .
               '/money?destination=/' . $game . '/land/' . $arg2 . '">' .
               t('Receive @offer @values (1&nbsp;@luck',
@@ -565,6 +565,37 @@ function _show_land($game_user, $item, $options = array()) {
 
       break;
 
+    case 'failed not-required-hood':
+
+      $header = '<div class="title">' .
+        t('∆ Location <span>Incorrect</span> ∆') .
+        '</div>';
+
+      $failed = 'failed';
+
+      break;
+
+    case 'failed not-required-party':
+
+      $header = '<div class="title">' .
+        t('∆ @party <span>Incorrect</span> ∆',
+          array('@party' => $party)) .
+        '</div>';
+
+      $failed = 'failed';
+
+      break;
+
+    case 'failed not-active':
+    case 'failed is-loot':
+
+      $header = '<div class="title">' .
+        t('∆ Equipment <span>Unavailable</span> ∆') .
+        '</div>';
+
+      $failed = 'failed';
+
+      break;
   }
 
   $description = str_replace('%party', "<em>$party_title</em>",
