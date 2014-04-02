@@ -150,11 +150,13 @@ firep($favor);
 
     where users.actions > %d
     and users.id <> %d
+    and users.fkey_neighborhoods_id = %d
     
     ' . $where_ep . ' ' . $where_comp . '
-    order by RAND() limit 50;';
+    order by RAND() limit 40;';
 firep($sql);
-  $result = db_query($sql, $favor->runner_actions_cost, $game_user->id);
+  $result = db_query($sql, $favor->runner_actions_cost, $game_user->id,
+    $game_user->fkey_neighborhoods_id);
   while ($item = db_fetch_object($result)) $data[] = $item;
 
   if (count($data) == 0) {
