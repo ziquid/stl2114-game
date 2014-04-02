@@ -77,7 +77,7 @@ EOF;
 
 
 // abc123 -- show all
-  $active_favors = ($phone_id == 'abc123') ? '' : 'and favors.active = 1';
+  $active_favors = ($phone_id == 'abc123') ? '' : 'where favors.active = 1';
 
 // show each favor
   $sql = 'select favors.*, elected_positions.name as ep_name,
