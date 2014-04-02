@@ -272,9 +272,9 @@ EOF;
 // Move
     $coords = _stlouis_scale_coords($coefficient, 131, 127, 183, 147);
 
-//    echo <<< EOF
-//    <area shape="rect" coords="$coords" alt="Move" href="/$game/move/$arg2/0" />
-// EOF;
+  echo <<< EOF
+    <area shape="rect" coords="$coords" alt="Move" href="/$game/move/$arg2/0" />
+EOF;
 
     
 // Elders, Profile
