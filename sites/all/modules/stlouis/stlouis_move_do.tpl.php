@@ -86,6 +86,30 @@ firep($actions_to_move);
 // april fools 2013
 //    $actions_to_move = 1;
       
+    if (!$cur_hood->is_habitable) {
+      
+      $fetch_header($game_user);
+      
+      echo '<div class="land-failed">' .
+          t('No Transports Available') . 
+        '</div>
+        <div class="try-an-election-wrapper">
+          <div class="try-an-election">
+            <a href="/' . $game . '/move/' . $arg2 . '/0">' .
+              t('Choose a different @neighborhood',
+                array('@neighborhood' => $hood_lower)) .
+            '</a>
+          </div>
+        </div>';
+      
+      if (substr($phone_id, 0, 3) == 'ai-')
+        echo "<!--\n<ai \"move-failed not-habitable\"/>\n-->";
+
+      db_set_active('default');
+      return;
+      
+    }
+
     if ($game_user->actions < $actions_to_move) {
       
       $fetch_header($game_user);
@@ -120,30 +144,6 @@ firep($actions_to_move);
     }
 
     $resigned_text = '';
-    
-// you lose your old type 1 position, if any (type 1 = neighborhood)
-// moving to a new district loses the type 3 (house) position
-    $sql = 'SELECT elected_positions.type
-      FROM elected_officials
-      LEFT JOIN elected_positions
-      ON elected_officials.fkey_elected_positions_id = elected_positions.id
-      WHERE elected_officials.fkey_users_id = %d;';
-    $result = db_query($sql, $game_user->id);
-    $item = db_fetch_object($result);
-    
-    if (($item->type == 1) ||
-      ($item->type == 3 && ($cur_hood->district != $new_hood->district))) {
-
-// mail('joseph@cheek.com', 'loss of seat due to move',
-//   "$game_user->username has lost seat of type $item->type due to move to " .
-//   "$new_hood->name.");
-
-      $sql = 'delete from elected_officials where fkey_users_id = %d;';
-      $result = db_query($sql, $game_user->id);
-
-      $resigned_text = 'and resigned your current position';
-
-    }
     
 // update neighborhood and actions
     $sql = 'update users set fkey_neighborhoods_id = %d,
@@ -243,4 +243,4 @@ EOF;
   if (substr($phone_id, 0, 3) == 'ai-')
     echo "<!--\n<ai \"move-succeeded\"/>\n-->";
 
-   db_set_active('default');
+  db_set_active('default');

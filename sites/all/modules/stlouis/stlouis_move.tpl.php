@@ -128,7 +128,9 @@ EOF;
       <area id="map_mid_back_click" shape="rect" coords="0,0,80,80" alt="Back" href="#" />
 EOF;
 
-  $sql = 'select * from neighborhoods where xcoor > 0 or ycoor > 0;';
+  $sql = 'select * from neighborhoods
+  where (xcoor > 0 or ycoor > 0)
+  and is_habitable = 1;';
   $result = db_query($sql);
 
   $data = array();
@@ -209,8 +211,8 @@ EOF;
     $xcoor = floor(($item->xcoor - $xoff) * $coefficient / $divisor);
     $ycoor = floor(($item->ycoor - $yoff) * $coefficient / $divisor);
 
-//    echo "<area shape=\"circle\" coords=\"$xcoor,$ycoor,16\" href=\"$item->id\"
-//      alt=\"$item->name\" />";
+    echo "<area shape=\"circle\" coords=\"$xcoor,$ycoor,16\" href=\"$item->id\"
+      alt=\"$item->name\" />";
     
   }
   
@@ -306,8 +308,8 @@ EOF;
     if ($xcoor >=16 /* && $xcoor < 320 */ &&
       $ycoor >= 16 /* && $ycoor <= 334 */) {
 
-//      echo "<area shape=\"circle\" coords=\"$xcoor,$ycoor,16\" href=\"$item->id\"
-//        alt=\"$item->name\" />\n";
+      echo "<area shape=\"circle\" coords=\"$xcoor,$ycoor,16\" href=\"$item->id\"
+        alt=\"$item->name\" />\n";
     }
 
   }
