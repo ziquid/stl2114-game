@@ -9,8 +9,6 @@
   include_once(drupal_get_path('module', $game) . '/game_defs.inc');
   $arg2 = check_plain(arg(2));
 
-  $neighborhood_id = 75; // jwc keep them in riverview
-
 // random hood -- april fools 2013
 /*
   if (mt_rand(0, 1) > 0) {
@@ -25,17 +23,18 @@
 */
   if ($neighborhood_id == $game_user->fkey_neighborhoods_id) {
     
-    $sql = 'select name from neighborhoods where id = %d;';
-    $result = db_query($sql, $game_user->fkey_neighborhoods_id);
-    $data = db_fetch_object($result);
-    $location = $data->name;
-    
     $game_user = $fetch_user();
     $fetch_header($game_user);
 
     echo <<< EOF
-<div class="title">You are already in $location</div>
-<div class="election-continue"><a href="/$game/move/$arg2/0">Try again</a></div>
+<div class="title">
+  You are already in $game_user->location
+</div>
+<div class="election-continue">
+  <a href="/$game/move/$arg2/0">
+    Try again
+  </a>
+</div>
 EOF;
 
     if (substr($phone_id, 0, 3) == 'ai-')
