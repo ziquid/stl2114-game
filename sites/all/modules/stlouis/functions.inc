@@ -1329,7 +1329,8 @@ EOF;
         $item->equipment_3_required_quantity);
 
     if ($item->clan_equipment_1_required_quantity > 0)
-      _clan_required_equipment($game_user, $item->fkey_clan_equipment_1_required_id,
+      _clan_required_equipment($game_user,
+        $item->fkey_clan_equipment_1_required_id,
         $item->clan_equipment_1_required_quantity);
 
 // required staff
