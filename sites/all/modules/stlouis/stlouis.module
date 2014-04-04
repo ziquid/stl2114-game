@@ -320,9 +320,8 @@ function stlouis_cron() {
   foreach ($data as $item)
 
 // /* Fill w/ icon
-    $icon = imagecreatefrompng(
-      'sites/default/files/images/celestial_glory_clan_' .
-      $item->clan_icon . '.png');
+    $icon = imagecreatefrompng('sites/default/files/images/stlouis_clan_' .
+      $item->party_icon . '.png');
     imagecopy($map_large, $icon, $item->xcoor - 12, $item->ycoor, 0, 0,
       imagesx($icon), imagesy($icon));
     imagedestroy($icon);
