@@ -287,23 +287,54 @@ function stlouis_cron() {
   $map_large_overlay =
     imagecreatefrompng('sites/default/files/images/stlouis_map_large_overlay.png');
 
-  $sql = 'SELECT color, xcoor, ycoor
-    FROM `elected_officials`
-    left join users on fkey_users_id = users.id
-    left join `values` on fkey_values_id = `values`.id
-    left join neighborhoods on users.fkey_neighborhoods_id = neighborhoods.id
-    WHERE fkey_elected_positions_id = 1 and (xcoor > 1 or ycoor > 1);';
+  $sql = 'select id from neighborhoods
+    where is_habitable = 1;';
   $result = db_query($sql);
-  while ($item = db_fetch_object($result)) $data[] = $item;
+  while ($item = db_fetch_object($result)) $hoods[] = $item;
+
+  $sql = 'SELECT party_icon, xcoor, ycoor, users.id
+    FROM `users`
+
+    LEFT JOIN `values` ON users.fkey_values_id = `values`.id
+
+    LEFT OUTER JOIN elected_officials
+    ON elected_officials.fkey_users_id = users.id
+
+    LEFT OUTER JOIN elected_positions
+    ON elected_positions.id = elected_officials.fkey_elected_positions_id
+
+    LEFT OUTER JOIN neighborhoods
+    ON users.fkey_neighborhoods_id = neighborhoods.id
+    WHERE users.fkey_neighborhoods_id = 75
+
+    ORDER by elected_positions.id DESC, users.experience DESC
+    LIMIT 1;'
+  unset($data);
+
+// check each hood -- wish i could figure out w/o a loop
+  foreach ($hoods as $hood) {
+    $result = db_query($sql, $hood);
+    $data[] = db_fetch_object($result);
+  }
 
   foreach ($data as $item)
 
+// /* Fill w/ icon
+    $icon = imagecreatefrompng(
+      'sites/default/files/images/celestial_glory_clan_' .
+      $item->clan_icon . '.png');
+    imagecopy($map_large, $icon, $item->xcoor - 12, $item->ycoor, 0, 0,
+      imagesx($icon), imagesy($icon));
+    imagedestroy($icon);
+// */
+
+/* old method -- fill w/o color
     imagefill($map_large, $item->xcoor, $item->ycoor,
       imagecolorallocate($map_large,
       hexdec(substr($item->color, 0, 2)),
       hexdec(substr($item->color, 2, 2)),
       hexdec(substr($item->color, 4, 2))));
-
+// */
 /* st patrick's day
     imagefill($map_large, $item->xcoor, $item->ycoor,
       imagecolorallocate($map_large, 32, 224, 32));
@@ -329,16 +360,6 @@ function stlouis_cron() {
   imagecopy($map_large_bottom, $map_large, 0, 0, 0, imagesy($map_large) - 600,
     imagesx($map_large), 600);
 
-/*
-  imagepng($map_large,
-    "sites/default/files/images/stlouis_map_large_colored.png");
-  imagepng($map_mid,
-    "sites/default/files/images/stlouis_map_mid.png");
-  imagepng($map_top,
-    "sites/default/files/images/stlouis_map_top.png");
-  imagepng($map_bottom,
-    "sites/default/files/images/stlouis_map_bottom.png");
-*/
   imagejpeg($map_large_mid,
     "sites/default/files/images/stlouis_map_large_colored.jpg");
   imagejpeg($map_large_bottom,
