@@ -308,10 +308,10 @@ function stlouis_cron() {
     WHERE users.fkey_neighborhoods_id = 75
 
     ORDER by elected_positions.id DESC, users.experience DESC
-    LIMIT 1;'
-  unset($data);
+    LIMIT 1;';
 
 // check each hood -- wish i could figure out w/o a loop
+  unset($data);
   foreach ($hoods as $hood) {
     $result = db_query($sql, $hood);
     $data[] = db_fetch_object($result);
