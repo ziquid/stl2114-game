@@ -305,7 +305,7 @@ function stlouis_cron() {
 
     LEFT OUTER JOIN neighborhoods
     ON users.fkey_neighborhoods_id = neighborhoods.id
-    WHERE users.fkey_neighborhoods_id = 75
+    WHERE users.fkey_neighborhoods_id = %d
 
     ORDER by elected_positions.id DESC, users.experience DESC
     LIMIT 1;';
@@ -322,7 +322,7 @@ function stlouis_cron() {
 // /* Fill w/ icon
     $icon = imagecreatefrompng('sites/default/files/images/stlouis_clan_' .
       $item->party_icon . '.png');
-    imagecopy($map_large, $icon, $item->xcoor - 12, $item->ycoor, 0, 0,
+    imagecopy($map_large, $icon, $item->xcoor - 18, $item->ycoor - 18, 0, 0,
       imagesx($icon), imagesy($icon));
     imagedestroy($icon);
 // */
