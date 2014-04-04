@@ -291,6 +291,7 @@ function stlouis_cron() {
     where is_habitable = 1;';
   $result = db_query($sql);
   while ($item = db_fetch_object($result)) $hoods[] = $item;
+// firep($hoods, 'hoods');
 
   $sql = 'SELECT party_icon, xcoor, ycoor, users.id
     FROM `users`
@@ -311,13 +312,13 @@ function stlouis_cron() {
     LIMIT 1;';
 
 // check each hood -- wish i could figure out w/o a loop
-  unset($data);
+  $data = array();
   foreach ($hoods as $hood) {
     $result = db_query($sql, $hood->id);
     $data[] = db_fetch_object($result);
   }
 
-  foreach ($data as $item)
+  foreach ($data as $item) {
 
 // /* Fill w/ icon
     $icon = imagecreatefrompng('sites/default/files/images/stlouis_clan_' .
@@ -338,6 +339,8 @@ function stlouis_cron() {
     imagefill($map_large, $item->xcoor, $item->ycoor,
       imagecolorallocate($map_large, 32, 224, 32));
 */
+
+  }
 
   imagecopy($map_large, $map_large_overlay, 0, 0, 0, 0,
     imagesx($map_large_overlay), imagesy($map_large_overlay));
