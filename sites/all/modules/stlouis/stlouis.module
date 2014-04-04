@@ -313,7 +313,7 @@ function stlouis_cron() {
 // check each hood -- wish i could figure out w/o a loop
   unset($data);
   foreach ($hoods as $hood) {
-    $result = db_query($sql, $hood);
+    $result = db_query($sql, $hood->id);
     $data[] = db_fetch_object($result);
   }
 
