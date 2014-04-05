@@ -161,13 +161,13 @@
           t('∆ Requisite <span>Missing</span> ∆',
           array('@party' => $party_lower)) . '
         </div>
-        <div class="quest-required_stuff missing centered">
-          <div class="quest-required_equipment">
-            <img src="/sites/default/files/images/equipment/' . $game . '-' .
-              $game_quest->fkey_clan_equipment_1_required_id . '.png"
-              width="48">
-          </div>&nbsp;x' .
-          $game_quest->clan_equipment_1_required_quantity . '
+        <div class="equipment-required missing">
+          <img src="/sites/default/files/images/equipment/' . $game . '-' .
+            $game_quest->fkey_clan_equipment_1_required_id . '.png"
+            width="48"/>
+          <span class="required-num">
+            x ' . $game_quest->clan_equipment_1_required_quantity . '
+          </span>
         </div>
       </div>';
       $ai_output = 'quest-failed need-equipment-' .

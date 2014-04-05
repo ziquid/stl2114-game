@@ -603,23 +603,23 @@ li {
 
 
 .news .all {
-  
+
 }
 
 .news .personal {
-  
+
 }
 
 .news .elections {
-  
+
 }
 
 .news .clan {
-  
+
 }
 
 .news .system {
-  
+
 }
 
 
@@ -933,7 +933,7 @@ li {
 }
 
 
-.debate-used {
+.debate-used, .quest-required {
   text-align: center;
   font-size: 14px;
   padding: 8px 5px 4px;
@@ -942,7 +942,7 @@ li {
 }
 
 
-.debate-used .debate-num {
+.debate-used .debate-num, .quest-required .quest-num {
   position: absolute;
   right: 9px;
   bottom: 5px;
@@ -955,7 +955,7 @@ li {
 }
 
 
-.equipment-gain {
+.equipment-gain, .equipment-required {
   text-align: center;
   font-size: 14px;
   padding: 8px 5px 4px;
@@ -964,7 +964,7 @@ li {
 }
 
 
-.equipment-gain .equipment-gain-num {
+.equipment-gain .equipment-gain-num, .equipment-required .required-num {
   position: absolute;
   right: 9px;
   bottom: 5px;
