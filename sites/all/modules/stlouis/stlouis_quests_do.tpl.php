@@ -149,7 +149,7 @@
 
     $sql = 'select quantity from clan_equipment_ownership
       where fkey_equipment_id = %d and fkey_clans_id = %d;';
-    $result = db_query($sql, $game_quest->fkey_equipment_1_required_id,
+    $result = db_query($sql, $game_quest->fkey_clan_equipment_1_required_id,
       $game_user->fkey_clans_id);
     $quantity = db_fetch_object($result);
 
