@@ -158,7 +158,7 @@
       $quest_succeeded = FALSE;
       $outcome_reason = '<div class="quests failed">
         <div class="title">' .
-          t('∆ Required Item <span>Missing</span> ∆',
+          t('∆ Requisite <span>Missing</span> ∆',
           array('@party' => $party_lower)) . '
         </div>
         <div class="quest-required_stuff missing centered">
