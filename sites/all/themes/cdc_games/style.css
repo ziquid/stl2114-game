@@ -945,12 +945,12 @@ li {
 .debate-used .debate-num, .quest-required .quest-num {
   position: absolute;
   right: 9px;
-  bottom: 5px;
+  bottom: 4px;
   text-shadow: 1px 1px 1px black, -1px -1px 1px black;
 }
 
 
-.equipment-gain-wrapper {
+.equipment-gain-wrapper, .equipment-required-wrapper {
   text-align: center;
 }
 
@@ -967,7 +967,7 @@ li {
 .equipment-gain .equipment-gain-num, .equipment-required .required-num {
   position: absolute;
   right: 9px;
-  bottom: 5px;
+  bottom: 4px;
   text-shadow: 1px 1px 1px black, -1px -1px 1px black;
   background-color: #006;
   border-radius: 10px 3px 10px 3px;
