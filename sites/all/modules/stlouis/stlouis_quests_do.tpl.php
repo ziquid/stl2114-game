@@ -156,18 +156,20 @@
     if ($quantity->quantity < $game_quest->clan_equipment_1_required_quantity) {
 
       $quest_succeeded = FALSE;
-      $outcome_reason = '<div class="quest-failed">' .
-          t('Failed!') . '
+      $outcome_reason = '<div class="quests failed">
+        <div class="title">' .
+          t('∆ Required Item <span>Missing</span> ∆',
+          array('@party' => $party_lower)) . '
         </div>
         <div class="quest-required_stuff missing centered">
-          Missing
           <div class="quest-required_equipment">
             <img src="/sites/default/files/images/equipment/' . $game . '-' .
               $game_quest->fkey_clan_equipment_1_required_id . '.png"
               width="48">
           </div>&nbsp;x' .
           $game_quest->clan_equipment_1_required_quantity . '
-        </div>';
+        </div>
+      </div>';
       $ai_output = 'quest-failed need-equipment-' .
         $game_quest->fkey_clan_equipment_1_required_id;
     }
@@ -206,7 +208,7 @@
     $quest_succeeded = FALSE;
     $outcome_reason = '<div class="quests failed">
       <div class="title">' .
-        t('∆ @party affiliation <span>Unrecognized</span> ∆',
+        t('∆ @party Affiliation <span>Unrecognized</span> ∆',
         array('@party' => $party_lower)) . '
       </div>
       <div class="try-an-election-wrapper">
