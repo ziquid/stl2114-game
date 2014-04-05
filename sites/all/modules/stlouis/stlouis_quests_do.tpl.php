@@ -172,7 +172,7 @@
           </div>
         </div>
         <div class="subtitle">
-          (Help your clan create more)
+          (Hint: Help your clan create more)
         </div>
       </div>';
       $ai_output = 'quest-failed need-equipment-' .
