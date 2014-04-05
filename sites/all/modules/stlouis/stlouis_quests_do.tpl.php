@@ -171,6 +171,9 @@
             </span>
           </div>
         </div>
+        <div class="subtitle">
+          (Help your clan create more)
+        </div>
       </div>';
       $ai_output = 'quest-failed need-equipment-' .
         $game_quest->fkey_clan_equipment_1_required_id;
