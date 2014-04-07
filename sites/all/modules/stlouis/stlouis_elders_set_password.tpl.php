@@ -1,14 +1,15 @@
 <?php
 
   global $game, $phone_id;
-  
+
   $fetch_user = '_' . arg(0) . '_fetch_user';
   $fetch_header = '_' . arg(0) . '_header';
 
   $game_user = $fetch_user();
-  
+  $arg2 = check_plain(arg(2));
+
   if ($game_user->level < 6) {
-    
+
     echo <<< EOF
 <div class="title">
   <img src="/sites/default/files/images/{$game}_title.png"/>
@@ -24,28 +25,28 @@
   <p class="second">&nbsp;</p>
 </div>
 <div class="subtitle"><a
-  href="/$game/quests/$phone_id"><img
-  src="/sites/default/files/images/{$game}_continue.png"/></a></div>  
+  href="/$game/quests/$arg2"><img
+  src="/sites/default/files/images/{$game}_continue.png"/></a></div>
 EOF;
 
   db_set_active('default');
   return;
-    
+
   }
 
   $password = trim(check_plain($_GET['password']));
-  
+
   if (strlen($password) > 0 and strlen($password) < 6) {
     $error_msg .= '<div class="username-error">Your password must be at least 6
       characters long.</div>';
     $password = '';
   }
-  
+
 // if they have chosen a password
   if ($password != '') {
 
     if ($password == 'delete') $password = '';
-    
+
     $sql = 'update users set password = "%s" where id = %d;';
     $result = db_query($sql, $password, $game_user->id);
 
@@ -64,13 +65,13 @@ EOF;
   <p class="second">&nbsp;</p>
 </div>
 <div class="subtitle"><a
-  href="/$game/home/$phone_id"><img
-  src="/sites/default/files/images/{$game}_continue.png"/></a></div>  
+  href="/$game/home/$arg2"><img
+  src="/sites/default/files/images/{$game}_continue.png"/></a></div>
 EOF;
 
     db_set_active('default');
     return;
-    
+
   } else { // haven't chosen a password on this screen yet
 
   if (empty($game_user->password)) {
@@ -100,7 +101,7 @@ EOF;
   <p class="second">&quot;$quote&quot;</p>
   <p class="second">$quote2</p>
   <div class="ask-name">
-    <form method=get action="/$game/elders_set_password/$phone_id">
+    <form method=get action="/$game/elders_set_password/$arg2">
       <input type="text" name="password" width="20" maxlength="20"
         value="$game_user->password"/>
       <input type="submit" value="Submit"/>
