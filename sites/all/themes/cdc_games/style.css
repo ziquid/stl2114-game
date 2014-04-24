@@ -1078,4 +1078,5 @@ form input[type="radio"]:checked + label {
 #leafmap {
   width: 320px;
   height: 480px;
+  background-color: rgba(0, 0, 0, 0);
 }
