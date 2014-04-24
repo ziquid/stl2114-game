@@ -1073,3 +1073,9 @@ form input[type="radio"] {
 form input[type="radio"]:checked + label {
   color: yellow;
 }
+
+
+#map {
+  width: 320px;
+  height: 480px;
+}
