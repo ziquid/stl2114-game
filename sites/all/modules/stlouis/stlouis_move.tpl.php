@@ -325,11 +325,12 @@ EOF;
 <script type="text/javascript">
 
 var map = L.map('leafmap').setView([38.64, -90.24], 11);
+/*
 L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
     maxZoom: 18
 }).addTo(map);
-
+*/
 window.onload = function() {
 
   document.getElementById('map_mid').style.display = 'none';
