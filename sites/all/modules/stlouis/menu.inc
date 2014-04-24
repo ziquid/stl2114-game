@@ -1409,7 +1409,7 @@ function stlouis_move_callback($phone_id, $neighborhood_id) {
   }
 
   drupal_add_css('http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css',
-    array('type' => 'external', 'group' => CSS_THEME);
+    array('type' => 'external', 'group' => CSS_THEME));
   drupal_add_js('http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js', 'file');
 
   return theme('stlouis_move', $phone_id, $neighborhood_id);
