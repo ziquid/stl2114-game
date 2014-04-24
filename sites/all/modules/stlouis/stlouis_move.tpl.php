@@ -10,8 +10,7 @@
   include(drupal_get_path('module', $game) . '/game_defs.inc');
   $arg2 = check_plain(arg(2));
 
-  drupal_add_css('http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css',
-    array('type' => 'external', 'group' => CSS_THEME));
+
 
   $sql = 'select name from neighborhoods where id = %d;';
   $result = db_query($sql, $game_user->fkey_neighborhoods_id);
