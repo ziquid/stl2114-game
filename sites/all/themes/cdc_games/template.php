@@ -17,11 +17,15 @@ function cdc_games_preprocess_page(&$vars, $hook) {
 
   if (arg(1) == 'move') {
 
-    $vars['head'] .= '<link '. drupal_attributes(array(
+    $vars['styles'] .= '<link '. drupal_attributes(array(
       'rel' => 'stylesheet',
       'type' => 'text/css',
       'href' => 'http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css')
     ) ." />\n";
+
+    $vars['scripts'] .= '<script '. drupal_attributes(array(
+      'src' => 'http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js')
+    ) ."></script>\n";
 
   }
 
