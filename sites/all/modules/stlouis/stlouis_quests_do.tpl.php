@@ -874,8 +874,6 @@ EOF;
     </div>
 EOF;
 
-      } // check for income < expenses after loot
-
     } // check for loot - equipment
 
 // check for loot - staff
