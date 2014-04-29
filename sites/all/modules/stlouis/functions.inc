@@ -121,14 +121,17 @@ function _required_equipment($game_user, $equipment_id, $req_quantity) {
   }
 
   echo <<< EOF
-<div class="quest-required_stuff">Requires
-  <div class="quest-required_equipment">
+<div class="quest-required_stuff">
+  <div class="quest-required">
     $a_start
       <img class="$not_yet"
         src="/sites/default/files/images/equipment/$game-$equipment_id.png"
         width="48">
     $a_end
-  </div>&nbsp;x$req_quantity
+    <div class="quest-required-num">
+      x$req_quantity
+    </div>
+  </div>
 </div>
 EOF;
 
