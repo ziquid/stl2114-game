@@ -777,7 +777,7 @@ EOF;
 //firep($rgb);
 //firep($width);
 
-    $loot_html = '';
+    $disbursement_html = $consumption_html = '';
 
 // check for consumption - clan equipment
 
@@ -788,7 +788,7 @@ EOF;
       $result = db_query($sql, $game_quest->fkey_clan_equipment_1_consumed_id);
       $game_equipment = db_fetch_object($result); // limited to 1 in DB
 
-      $loot_html .=<<< EOF
+      $consumption_html .=<<< EOF
   <div class="quest-requisites">
     // Consumed By You //
   </div>
@@ -837,7 +837,7 @@ EOF;
       $result = db_query($sql, $game_quest->fkey_loot_equipment_id);
       $loot = db_fetch_object($result);
 
-      $loot_html =<<< EOF
+      $disbursement_html =<<< EOF
   <div class="title loot">You Found</div>
   <div class="quest-icon"><img
    src="/sites/default/files/images/equipment/$game-$loot->id.png" width="96"></div>
@@ -903,7 +903,7 @@ EOF;
       $result = db_query($sql, $game_quest->fkey_loot_staff_id);
       $loot = db_fetch_object($result);
 
-      $loot_html .=<<< EOF
+      $disbursement_html .=<<< EOF
   <div class="title loot">You Found</div>
   <div class="quest-icon"><img
    src="/sites/default/files/images/staff/$game-$loot->id.png" width="96"></div>
@@ -965,7 +965,8 @@ EOF;
     if ($game_user->level > 1)
       _show_quest($game_user, $game_quest, $percentage_target,
         $percentage_divisor, $quest_group, $party_title, $outcome_reason,
-        $exp_added_str, $money_added_str, $disbursements_doubled, $loot_html,
+        $exp_added_str, $money_added_str, $disbursements_doubled,
+        $consumption_html, $disbursement_html,
         $quest_completion_html);
 
   } else { // failed!

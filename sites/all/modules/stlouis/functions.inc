@@ -1193,7 +1193,8 @@ EOF;
 function _show_quest($game_user, $item, $percentage_target,
   $percentage_divisor, $quest_group, $party_title, $outcome = '',
   $exp_added_str = '', $money_added_str = '', $disbursements_doubled = '',
-  $loot_html = '', $quest_completion_html = '') {
+  $consumption_html = '', $disbursement_html = '',
+  $quest_completion_html = '') {
 
   global $game, $phone_id;
   include(drupal_get_path('module', $game) . '/game_defs.inc');
@@ -1433,6 +1434,13 @@ EOF;
   } else { // quest performed -- show accomplishments
 
     echo <<< EOF
+    <div class="quest-requisites">
+      // Consumed By You //
+    </div>
+    <div class="quest-required_energy">
+      $item->required_energy $energy
+    </div>
+    $consumption_html
     <div class="quest-disbursements">
       // Disbursed To You //
     </div>
@@ -1443,7 +1451,7 @@ EOF;
       $money_added_str $game_user->values $disbursements_doubled
     </div>
   </div>
-  $loot_html
+  $disbursement_html
   $quest_completion_html
   <div class="quest-do-again">
     <div class="quest-do-again-inside">
