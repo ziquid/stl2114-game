@@ -827,7 +827,7 @@ EOF;
     if ($game_quest->chance_of_loot >= mt_rand(1,100) &&
     ($limit || $game_equipment->quantity_limit == 0)) {
 
-      equipment_gain(&$game_user, $game_equipment->id, 1);
+      equipment_gain($game_user, $game_equipment->id, 1);
 
       $sql = 'select * from equipment where id = %d;';
       $result = db_query($sql, $game_quest->fkey_loot_equipment_id);
