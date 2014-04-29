@@ -789,9 +789,6 @@ EOF;
       $game_equipment = db_fetch_object($result); // limited to 1 in DB
 
       $consumption_html .=<<< EOF
-  <div class="quest-requisites">
-    // Consumed By You //
-  </div>
   <div class="quest-required_stuff">
     <div class="quest-required">
       $a_start
