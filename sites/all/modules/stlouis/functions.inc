@@ -1312,10 +1312,17 @@ EOF;
     </div>
 EOF;
 
-  if ($item->clan_equipment_1_consumed_quantity > 0)
+  if ($item->clan_equipment_1_consumed_quantity > 0) {
+
+    echo '<div class="quest-required_stuff">';
+
     _clan_required_equipment($game_user,
       $item->fkey_clan_equipment_1_consumed_id,
       $item->clan_equipment_1_consumed_quantity);
+
+    echo '</div>';
+
+  }
 
   if ($item->land_required_quantity +
     $item->equipment_1_required_quantity +
@@ -1720,13 +1727,6 @@ function clan_equipment_gain(&$game_user, $id, $quantity) {
   $result = db_query($sql, $id, $game_user->fkey_clans_id);
   $eo = db_fetch_object($result);
 
-/* not applicable for clans -- jwc
-// check for enough income to cover upkeep
-  if ($game_user->income <
-    $game_user->expenses + ($eq->upkeep * $quantity))
-      return array(FALSE, 'not-enough-income', ($eq->upkeep * $quantity));
-*/
-
   if (!empty($eo)) { // eo entry already there
 
     if (($eq->quantity_limit > 0) &&
@@ -1787,6 +1787,39 @@ function equipment_lose(&$game_user, $id, $quantity) {
     $sql = 'update users set expenses = expenses - %d where id = %d;';
     $result = db_query($sql, ($eq->upkeep * $quantity), $game_user->id);
     $game_user->expenses -= ($eq->upkeep * $quantity);
+  }
+
+  return TRUE;
+
+}
+
+
+function clan_equipment_lose(&$game_user, $id, $quantity) {
+
+  $sql = 'select * from equipment where id = %d;';
+  $result = db_query($sql, $id);
+  $eq = db_fetch_object($result);
+
+  $sql = 'select * from clan_equipment_ownership
+    where fkey_equipment_id = %d and fkey_clans_id = %d;';
+  $result = db_query($sql, $id, $game_user->fkey_clans_id);
+  $eo = db_fetch_object($result);
+
+  if (empty($eo)) return FALSE; // nothing there?
+  if ($eo->quantity < $quantity) return FALSE; // not enough?
+
+  if ($eo->quantity == $quantity) { // using all?  remove entry
+
+    $sql = 'delete from clan_equipment_ownership
+      where fkey_clans_id = %d and fkey_equipment_id = %d;';
+    $result = db_query($sql, $game_user->fkey_clans_id, $id);
+
+  } else {
+
+    $sql = 'update clan_equipment_ownership set quantity = quantity - %d
+      where fkey_equipment_id = %d and fkey_clans_id = %d;';
+    $result = db_query($sql, $quantity, $id, $game_user->fkey_clans_id);
+
   }
 
   return TRUE;
