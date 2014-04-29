@@ -789,18 +789,22 @@ EOF;
       $game_equipment = db_fetch_object($result); // limited to 1 in DB
 
       $loot_html .=<<< EOF
-  <div class="title loot">
-    // CONSUMED \\\\
+  <div class="quest-requisites">
+    // Consumed By You //
   </div>
-  <div class="quest-icon">
-    <img
-      src="/sites/default/files/images/equipment/$game-{$game_equipment->id}.png"
-      width="96"/>
-  </div>
-  <div class="quest-details">
-    <div class="quest-name loot">$game_equipment->name</div>
-    <div class="quest-description">$game_equipment->description &nbsp;</div>
-    <p class="second">&nbsp;</p>
+  <div class="quest-required_stuff">
+    <div class="quest-required">
+      $a_start
+        <img class="$not_yet"
+          src="/sites/default/files/images/equipment/$game-{$game_equipment->id}.png"
+          width="48">
+      $a_end
+      <div class="quest-required-num">
+        Clan
+        <br/>
+        -{$game_quest->clan_equipment_1_consumed_quantity}
+      </div>
+    </div>
   </div>
 EOF;
 
