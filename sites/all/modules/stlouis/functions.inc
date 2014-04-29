@@ -1305,6 +1305,22 @@ EOF;
 
     echo <<< EOF
     <div class="quest-requisites">
+      // Consumptions //
+    </div>
+    <div class="quest-required_energy">
+      $item->required_energy $energy
+    </div>
+EOF;
+
+  if ($item->land_required_quantity +
+    $item->equipment_1_required_quantity +
+    $item->equipment_2_required_quantity +
+    $item->equipment_3_required_quantity +
+    $item->clan_equipment_1_required_quantity +
+    $item->staff_required_quantity > 0) {
+
+      echo <<< EOF
+    <div class="quest-requisites">
       // Requisites //
     </div>
     <div class="quest-required_energy">
@@ -1312,74 +1328,76 @@ EOF;
     </div>
 EOF;
 
-// required land
+  // required land
 
-    if ($item->land_required_quantity > 0)
-      _required_land($game_user, $item->fkey_land_required_id,
-        $item->land_required_quantity);
+      if ($item->land_required_quantity > 0)
+        _required_land($game_user, $item->fkey_land_required_id,
+          $item->land_required_quantity);
 
-// required equipment
+  // required equipment
 
-    if ($item->equipment_1_required_quantity +
-      $item->equipment_2_required_quantity +
-      $item->equipment_3_required_quantity +
-      $item->clan_equipment_1_required_quantity > 0) {
+      if ($item->equipment_1_required_quantity +
+        $item->equipment_2_required_quantity +
+        $item->equipment_3_required_quantity +
+        $item->clan_equipment_1_required_quantity > 0) {
 
-      echo '<div class="quest-required_stuff">';
+        echo '<div class="quest-required_stuff">';
 
-      if ($item->equipment_1_required_quantity > 0)
-        _required_equipment($game_user, $item->fkey_equipment_1_required_id,
-          $item->equipment_1_required_quantity);
+        if ($item->equipment_1_required_quantity > 0)
+          _required_equipment($game_user, $item->fkey_equipment_1_required_id,
+            $item->equipment_1_required_quantity);
 
-      if ($item->equipment_2_required_quantity > 0)
-        _required_equipment($game_user, $item->fkey_equipment_2_required_id,
-          $item->equipment_2_required_quantity);
+        if ($item->equipment_2_required_quantity > 0)
+          _required_equipment($game_user, $item->fkey_equipment_2_required_id,
+            $item->equipment_2_required_quantity);
 
-      if ($item->equipment_3_required_quantity > 0)
-        _required_equipment($game_user, $item->fkey_equipment_3_required_id,
-          $item->equipment_3_required_quantity);
+        if ($item->equipment_3_required_quantity > 0)
+          _required_equipment($game_user, $item->fkey_equipment_3_required_id,
+            $item->equipment_3_required_quantity);
 
-      if ($item->clan_equipment_1_required_quantity > 0)
-        _clan_required_equipment($game_user,
-          $item->fkey_clan_equipment_1_required_id,
-          $item->clan_equipment_1_required_quantity);
+        if ($item->clan_equipment_1_required_quantity > 0)
+          _clan_required_equipment($game_user,
+            $item->fkey_clan_equipment_1_required_id,
+            $item->clan_equipment_1_required_quantity);
 
-      echo '</div>';
+        echo '</div>';
 
-    }
+      }
 
-// required staff
+  // required staff
 
-    if ($item->staff_required_quantity > 0)
-      _required_staff($game_user, $item->fkey_staff_required_id,
-        $item->staff_required_quantity);
+      if ($item->staff_required_quantity > 0)
+        _required_staff($game_user, $item->fkey_staff_required_id,
+          $item->staff_required_quantity);
 
-// required party
+  // required party
 
-    if ($item->need_party > 0)
-      echo <<< EOF
+      if ($item->need_party > 0)
+        echo <<< EOF
     <div class="quest-required_energy">
       You must belong to a non-Underground $party_lower
     </div>
 EOF;
 
-// required clan
+  // required clan
 
-    if ($item->need_clan > 0)
-      echo <<< EOF
+      if ($item->need_clan > 0)
+        echo <<< EOF
     <div class="quest-required_energy">
       You must belong to a clan
     </div>
 EOF;
 
-// required job
+  // required job
 
-    if ($item->need_job > 0)
-      echo <<< EOF
+      if ($item->need_job > 0)
+        echo <<< EOF
     <div class="quest-required_energy">
       You must have a job
     </div>
 EOF;
+
+    } // requirement
 
     echo <<< EOF
     <div class="quest-disbursements">
