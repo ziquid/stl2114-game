@@ -121,16 +121,14 @@ function _required_equipment($game_user, $equipment_id, $req_quantity) {
   }
 
   echo <<< EOF
-<div class="quest-required_stuff">
-  <div class="quest-required">
-    $a_start
-      <img class="$not_yet"
-        src="/sites/default/files/images/equipment/$game-$equipment_id.png"
-        width="48">
-    $a_end
-    <div class="quest-required-num">
-      x$req_quantity
-    </div>
+<div class="quest-required">
+  $a_start
+    <img class="$not_yet"
+      src="/sites/default/files/images/equipment/$game-$equipment_id.png"
+      width="48">
+  $a_end
+  <div class="quest-required-num">
+    x$req_quantity
   </div>
 </div>
 EOF;
@@ -161,16 +159,16 @@ function _clan_required_equipment($game_user, $equipment_id, $req_quantity) {
   }
 
   echo <<< EOF
-<div class="quest-required_stuff">
-  <div class="quest-required">
-    $a_start
-      <img class="$not_yet"
-        src="/sites/default/files/images/equipment/$game-$equipment_id.png"
-        width="48">
-    $a_end
-    <div class="quest-required-num">
-      x$req_quantity
-    </div>
+<div class="quest-required">
+  $a_start
+    <img class="$not_yet"
+      src="/sites/default/files/images/equipment/$game-$equipment_id.png"
+      width="48">
+  $a_end
+  <div class="quest-required-num">
+    Clan
+    <br/>
+    x$req_quantity
   </div>
 </div>
 EOF;
@@ -1322,22 +1320,33 @@ EOF;
 
 // required equipment
 
-    if ($item->equipment_1_required_quantity > 0)
-      _required_equipment($game_user, $item->fkey_equipment_1_required_id,
-        $item->equipment_1_required_quantity);
+    if ($item->equipment_1_required_quantity +
+      $item->equipment_2_required_quantity +
+      $item->equipment_3_required_quantity +
+      $item->clan_equipment_1_required_quantity > 0) {
 
-    if ($item->equipment_2_required_quantity > 0)
-      _required_equipment($game_user, $item->fkey_equipment_2_required_id,
-        $item->equipment_2_required_quantity);
+      echo '<div class="quest-required_stuff">';
 
-    if ($item->equipment_3_required_quantity > 0)
-      _required_equipment($game_user, $item->fkey_equipment_3_required_id,
-        $item->equipment_3_required_quantity);
+      if ($item->equipment_1_required_quantity > 0)
+        _required_equipment($game_user, $item->fkey_equipment_1_required_id,
+          $item->equipment_1_required_quantity);
 
-    if ($item->clan_equipment_1_required_quantity > 0)
-      _clan_required_equipment($game_user,
-        $item->fkey_clan_equipment_1_required_id,
-        $item->clan_equipment_1_required_quantity);
+      if ($item->equipment_2_required_quantity > 0)
+        _required_equipment($game_user, $item->fkey_equipment_2_required_id,
+          $item->equipment_2_required_quantity);
+
+      if ($item->equipment_3_required_quantity > 0)
+        _required_equipment($game_user, $item->fkey_equipment_3_required_id,
+          $item->equipment_3_required_quantity);
+
+      if ($item->clan_equipment_1_required_quantity > 0)
+        _clan_required_equipment($game_user,
+          $item->fkey_clan_equipment_1_required_id,
+          $item->clan_equipment_1_required_quantity);
+
+      echo '</div>';
+
+    }
 
 // required staff
 
