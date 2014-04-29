@@ -804,7 +804,7 @@ EOF;
   </div>
 EOF;
 
-      clan_equipment_lose($game_user, $$game_equipment.id,
+      clan_equipment_lose($game_user, $game_equipment->id,
         $game_quest->clan_equipment_1_consumed_quantity);
     } // check for consumption - clan equipment
 
