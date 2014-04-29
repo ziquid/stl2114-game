@@ -1312,6 +1312,11 @@ EOF;
     </div>
 EOF;
 
+  if ($item->clan_equipment_1_consumed_quantity > 0)
+    _clan_required_equipment($game_user,
+      $item->fkey_clan_equipment_1_consumed_id,
+      $item->clan_equipment_1_consumed_quantity);
+
   if ($item->land_required_quantity +
     $item->equipment_1_required_quantity +
     $item->equipment_2_required_quantity +
