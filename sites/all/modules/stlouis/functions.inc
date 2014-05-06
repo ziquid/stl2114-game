@@ -121,14 +121,15 @@ function _required_equipment($game_user, $equipment_id, $req_quantity) {
   }
 
   echo <<< EOF
-<div class="quest-required_stuff">Requires
-  <div class="quest-required_equipment">
-    $a_start
-      <img class="$not_yet"
-        src="/sites/default/files/images/equipment/$game-$equipment_id.png"
-        width="48">
-    $a_end
-  </div>&nbsp;x$req_quantity
+<div class="quest-required">
+  $a_start
+    <img class="$not_yet"
+      src="/sites/default/files/images/equipment/$game-$equipment_id.png"
+      width="48">
+  $a_end
+  <div class="quest-required-num">
+    x$req_quantity
+  </div>
 </div>
 EOF;
 
@@ -158,14 +159,17 @@ function _clan_required_equipment($game_user, $equipment_id, $req_quantity) {
   }
 
   echo <<< EOF
-<div class="quest-required_stuff">Clan $equipment Required
-  <div class="quest-required_equipment">
-    $a_start
-      <img class="$not_yet"
-        src="/sites/default/files/images/equipment/$game-$equipment_id.png"
-        width="48">
-    $a_end
-  </div>&nbsp;x$req_quantity
+<div class="quest-required">
+  $a_start
+    <img class="$not_yet"
+      src="/sites/default/files/images/equipment/$game-$equipment_id.png"
+      width="48">
+  $a_end
+  <div class="quest-required-num">
+    Clan
+    <br/>
+    x$req_quantity
+  </div>
 </div>
 EOF;
 
@@ -1189,7 +1193,8 @@ EOF;
 function _show_quest($game_user, $item, $percentage_target,
   $percentage_divisor, $quest_group, $party_title, $outcome = '',
   $exp_added_str = '', $money_added_str = '', $disbursements_doubled = '',
-  $loot_html = '', $quest_completion_html = '') {
+  $consumption_html = '', $disbursement_html = '',
+  $quest_completion_html = '') {
 
   global $game, $phone_id;
   include(drupal_get_path('module', $game) . '/game_defs.inc');
@@ -1301,6 +1306,34 @@ EOF;
 
     echo <<< EOF
     <div class="quest-requisites">
+      // Consumptions //
+    </div>
+    <div class="quest-required_energy">
+      $item->required_energy $energy
+    </div>
+EOF;
+
+  if ($item->clan_equipment_1_consumed_quantity > 0) {
+
+    echo '<div class="quest-required_stuff">';
+
+    _clan_required_equipment($game_user,
+      $item->fkey_clan_equipment_1_consumed_id,
+      $item->clan_equipment_1_consumed_quantity);
+
+    echo '</div>';
+
+  }
+
+  if ($item->land_required_quantity +
+    $item->equipment_1_required_quantity +
+    $item->equipment_2_required_quantity +
+    $item->equipment_3_required_quantity +
+    $item->clan_equipment_1_required_quantity +
+    $item->staff_required_quantity > 0) {
+
+      echo <<< EOF
+    <div class="quest-requisites">
       // Requisites //
     </div>
     <div class="quest-required_energy">
@@ -1308,63 +1341,76 @@ EOF;
     </div>
 EOF;
 
-// required land
+  // required land
 
-    if ($item->land_required_quantity > 0)
-      _required_land($game_user, $item->fkey_land_required_id,
-        $item->land_required_quantity);
+      if ($item->land_required_quantity > 0)
+        _required_land($game_user, $item->fkey_land_required_id,
+          $item->land_required_quantity);
 
-// required equipment
+  // required equipment
 
-    if ($item->equipment_1_required_quantity > 0)
-      _required_equipment($game_user, $item->fkey_equipment_1_required_id,
-        $item->equipment_1_required_quantity);
+      if ($item->equipment_1_required_quantity +
+        $item->equipment_2_required_quantity +
+        $item->equipment_3_required_quantity +
+        $item->clan_equipment_1_required_quantity > 0) {
 
-    if ($item->equipment_2_required_quantity > 0)
-      _required_equipment($game_user, $item->fkey_equipment_2_required_id,
-        $item->equipment_2_required_quantity);
+        echo '<div class="quest-required_stuff">';
 
-    if ($item->equipment_3_required_quantity > 0)
-      _required_equipment($game_user, $item->fkey_equipment_3_required_id,
-        $item->equipment_3_required_quantity);
+        if ($item->equipment_1_required_quantity > 0)
+          _required_equipment($game_user, $item->fkey_equipment_1_required_id,
+            $item->equipment_1_required_quantity);
 
-    if ($item->clan_equipment_1_required_quantity > 0)
-      _clan_required_equipment($game_user,
-        $item->fkey_clan_equipment_1_required_id,
-        $item->clan_equipment_1_required_quantity);
+        if ($item->equipment_2_required_quantity > 0)
+          _required_equipment($game_user, $item->fkey_equipment_2_required_id,
+            $item->equipment_2_required_quantity);
 
-// required staff
+        if ($item->equipment_3_required_quantity > 0)
+          _required_equipment($game_user, $item->fkey_equipment_3_required_id,
+            $item->equipment_3_required_quantity);
 
-    if ($item->staff_required_quantity > 0)
-      _required_staff($game_user, $item->fkey_staff_required_id,
-        $item->staff_required_quantity);
+        if ($item->clan_equipment_1_required_quantity > 0)
+          _clan_required_equipment($game_user,
+            $item->fkey_clan_equipment_1_required_id,
+            $item->clan_equipment_1_required_quantity);
 
-// required party
+        echo '</div>';
 
-    if ($item->need_party > 0)
-      echo <<< EOF
+      }
+
+  // required staff
+
+      if ($item->staff_required_quantity > 0)
+        _required_staff($game_user, $item->fkey_staff_required_id,
+          $item->staff_required_quantity);
+
+  // required party
+
+      if ($item->need_party > 0)
+        echo <<< EOF
     <div class="quest-required_energy">
       You must belong to a non-Underground $party_lower
     </div>
 EOF;
 
-// required clan
+  // required clan
 
-    if ($item->need_clan > 0)
-      echo <<< EOF
+      if ($item->need_clan > 0)
+        echo <<< EOF
     <div class="quest-required_energy">
       You must belong to a clan
     </div>
 EOF;
 
-// required job
+  // required job
 
-    if ($item->need_job > 0)
-      echo <<< EOF
+      if ($item->need_job > 0)
+        echo <<< EOF
     <div class="quest-required_energy">
       You must have a job
     </div>
 EOF;
+
+    } // requirement
 
     echo <<< EOF
     <div class="quest-disbursements">
@@ -1388,6 +1434,13 @@ EOF;
   } else { // quest performed -- show accomplishments
 
     echo <<< EOF
+    <div class="quest-requisites">
+      // Consumed By You //
+    </div>
+    <div class="quest-required_energy">
+      $item->required_energy $energy
+    </div>
+    $consumption_html
     <div class="quest-disbursements">
       // Disbursed To You //
     </div>
@@ -1398,7 +1451,7 @@ EOF;
       $money_added_str $game_user->values $disbursements_doubled
     </div>
   </div>
-  $loot_html
+  $disbursement_html
   $quest_completion_html
   <div class="quest-do-again">
     <div class="quest-do-again-inside">
@@ -1682,13 +1735,6 @@ function clan_equipment_gain(&$game_user, $id, $quantity) {
   $result = db_query($sql, $id, $game_user->fkey_clans_id);
   $eo = db_fetch_object($result);
 
-/* not applicable for clans -- jwc
-// check for enough income to cover upkeep
-  if ($game_user->income <
-    $game_user->expenses + ($eq->upkeep * $quantity))
-      return array(FALSE, 'not-enough-income', ($eq->upkeep * $quantity));
-*/
-
   if (!empty($eo)) { // eo entry already there
 
     if (($eq->quantity_limit > 0) &&
@@ -1749,6 +1795,39 @@ function equipment_lose(&$game_user, $id, $quantity) {
     $sql = 'update users set expenses = expenses - %d where id = %d;';
     $result = db_query($sql, ($eq->upkeep * $quantity), $game_user->id);
     $game_user->expenses -= ($eq->upkeep * $quantity);
+  }
+
+  return TRUE;
+
+}
+
+
+function clan_equipment_lose(&$game_user, $id, $quantity) {
+
+  $sql = 'select * from equipment where id = %d;';
+  $result = db_query($sql, $id);
+  $eq = db_fetch_object($result);
+
+  $sql = 'select * from clan_equipment_ownership
+    where fkey_equipment_id = %d and fkey_clans_id = %d;';
+  $result = db_query($sql, $id, $game_user->fkey_clans_id);
+  $eo = db_fetch_object($result);
+
+  if (empty($eo)) return FALSE; // nothing there?
+  if ($eo->quantity < $quantity) return FALSE; // not enough?
+
+  if ($eo->quantity == $quantity) { // using all?  remove entry
+
+    $sql = 'delete from clan_equipment_ownership
+      where fkey_clans_id = %d and fkey_equipment_id = %d;';
+    $result = db_query($sql, $game_user->fkey_clans_id, $id);
+
+  } else {
+
+    $sql = 'update clan_equipment_ownership set quantity = quantity - %d
+      where fkey_equipment_id = %d and fkey_clans_id = %d;';
+    $result = db_query($sql, $quantity, $id, $game_user->fkey_clans_id);
+
   }
 
   return TRUE;

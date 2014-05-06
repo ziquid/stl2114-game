@@ -942,7 +942,8 @@ li {
 }
 
 
-.debate-used .debate-num, .quest-required .quest-num {
+.debate-used .debate-num, .quest-required .quest-required-num {
+  color: white;
   position: absolute;
   right: 9px;
   bottom: 4px;

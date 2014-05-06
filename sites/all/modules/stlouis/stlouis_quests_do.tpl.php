@@ -179,7 +179,7 @@
         $game_quest->fkey_clan_equipment_1_required_id;
     }
 
-  } // no required equipment_1
+  } // no required clan equipment_1
 
 // required staff 1?
   if ($game_quest->staff_required_quantity > 0) {
@@ -777,9 +777,41 @@ EOF;
 //firep($rgb);
 //firep($width);
 
+    $disbursement_html = $consumption_html = '';
+
+// check for consumption - clan equipment
+
+    if ($game_quest->clan_equipment_1_consumed_quantity > 0) {
+
+      $sql = 'SELECT * FROM equipment
+        WHERE equipment.id = %d;';
+      $result = db_query($sql, $game_quest->fkey_clan_equipment_1_consumed_id);
+      $game_equipment = db_fetch_object($result); // limited to 1 in DB
+
+      $consumption_html .=<<< EOF
+  <div class="quest-required_stuff">
+    <div class="quest-required">
+      $a_start
+        <img class="$not_yet"
+          src="/sites/default/files/images/equipment/$game-{$game_equipment->id}.png"
+          width="48">
+      $a_end
+      <div class="quest-required-num">
+        Clan
+        <br/>
+        -{$game_quest->clan_equipment_1_consumed_quantity}
+      </div>
+    </div>
+  </div>
+EOF;
+
+      clan_equipment_lose($game_user, $game_equipment->id,
+        $game_quest->clan_equipment_1_consumed_quantity);
+    } // check for consumption - clan equipment
+
 // check for loot - equipment
 
-    $sql = 'SELECT equipment.quantity_limit,equipment_ownership.quantity
+    $sql = 'SELECT equipment.quantity_limit, equipment_ownership.quantity
       FROM equipment
 
       LEFT OUTER JOIN equipment_ownership
@@ -796,17 +828,13 @@ EOF;
     if ($game_quest->chance_of_loot >= mt_rand(1,100) &&
     ($limit || $game_equipment->quantity_limit == 0)) {
 
+      equipment_gain($game_user, $game_equipment->id, 1);
+
       $sql = 'select * from equipment where id = %d;';
       $result = db_query($sql, $game_quest->fkey_loot_equipment_id);
       $loot = db_fetch_object($result);
 
-      $cumulative_expenses = $game_user->expenses + $loot->upkeep;
-      if((int)$game_user->income >= $cumulative_expenses) {
-        $game_user->expenses = $cumulative_expenses;
-        $sql = 'UPDATE users SET expenses = %d WHERE id = %d';
-        $result = db_query($sql, $game_user->expenses, $game_user->id);
-
-        $loot_html =<<< EOF
+      $disbursement_html =<<< EOF
   <div class="title loot">You Found</div>
   <div class="quest-icon"><img
    src="/sites/default/files/images/equipment/$game-$loot->id.png" width="96"></div>
@@ -815,73 +843,41 @@ EOF;
     <div class="quest-description">$loot->description &nbsp;</div>
 EOF;
 
-        if ($loot->initiative_bonus > 0) {
+      if ($loot->initiative_bonus > 0) {
 
-          $loot_html .=<<< EOF
+        $loot_html .=<<< EOF
       <div class="quest-payout">$initiative: +$loot->initiative_bonus
         </div>
 EOF;
 
-        } // initiative bonus?
+      } // initiative bonus?
 
-        if ($loot->endurance_bonus > 0) {
+      if ($loot->endurance_bonus > 0) {
 
-          $loot_html .=<<< EOF
+        $loot_html .=<<< EOF
     <div class="quest-payout">$endurance: +$loot->endurance_bonus
       </div>
 EOF;
 
-        } // endurance bonus?
+      } // endurance bonus?
 
-        if ($loot->elocution_bonus > 0) {
+      if ($loot->elocution_bonus > 0) {
 
-          $loot_html .=<<< EOF
+        $loot_html .=<<< EOF
       <div class="quest-payout">$elocution: +$loot->elocution_bonus
         </div>
 EOF;
 
-        } // elocution bonus?
+      } // elocution bonus?
 
-        $loot_html .=<<< EOF
+      $loot_html .=<<< EOF
       <p class="second">&nbsp;</p>
     </div>
 EOF;
 
-// add/update db entry
-
-        $sql = 'SELECT equipment.*, equipment_ownership.quantity
-          FROM equipment
-
-          LEFT OUTER JOIN equipment_ownership
-          ON equipment_ownership.fkey_equipment_id = equipment.id
-          AND equipment_ownership.fkey_users_id = %d
-
-          WHERE equipment.id = %d;';
-        $result = db_query($sql, $game_user->id,
-          $game_quest->fkey_loot_equipment_id);
-        $game_equipment = db_fetch_object($result); // limited to 1 in DB
-
-        if ($game_equipment->quantity == '') { // no record exists - insert one
-
-          $sql = 'insert into equipment_ownership (fkey_equipment_id,
-            fkey_users_id, quantity) values (%d, %d, 1);';
-          $result = db_query($sql, $game_quest->fkey_loot_equipment_id,
-            $game_user->id);
-
-        } else { // existing record - update it
-
-          $sql = 'update equipment_ownership set quantity = quantity + 1 where
-            fkey_equipment_id = %d and fkey_users_id = %d;';
-          $result = db_query($sql, $game_quest->fkey_loot_equipment_id,
-            $game_user->id);
-
-        } // add/update db entry
-
-      } // check for income < expenses after loot
-
     } // check for loot - equipment
 
-    // check for loot - staff
+// check for loot - staff
 
     $sql = 'SELECT staff.quantity_limit, staff_ownership.quantity
       FROM staff
@@ -904,7 +900,7 @@ EOF;
       $result = db_query($sql, $game_quest->fkey_loot_staff_id);
       $loot = db_fetch_object($result);
 
-      $loot_html .=<<< EOF
+      $disbursement_html .=<<< EOF
   <div class="title loot">You Found</div>
   <div class="quest-icon"><img
    src="/sites/default/files/images/staff/$game-$loot->id.png" width="96"></div>
@@ -966,7 +962,8 @@ EOF;
     if ($game_user->level > 1)
       _show_quest($game_user, $game_quest, $percentage_target,
         $percentage_divisor, $quest_group, $party_title, $outcome_reason,
-        $exp_added_str, $money_added_str, $disbursements_doubled, $loot_html,
+        $exp_added_str, $money_added_str, $disbursements_doubled,
+        $consumption_html, $disbursement_html,
         $quest_completion_html);
 
   } else { // failed!
