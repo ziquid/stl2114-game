@@ -1676,6 +1676,12 @@ EOF;
 
 function equipment_gain(&$game_user, $id, $quantity) {
 
+  if ($id == 0) { // BUG?  how do these get here?
+    mail('joseph@cheek.com', $game_user->name . ' trying to get equipment 0!',
+      $game_user->phone_id);
+    return array(FALSE, 'bad-id', 0);
+  }
+
   $sql = 'select * from equipment where id = %d;';
   $result = db_query($sql, $id);
   $eq = db_fetch_object($result);

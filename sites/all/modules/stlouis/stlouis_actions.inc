@@ -118,7 +118,7 @@ function actionlist() {
     AND (actions.required_level <= %d OR actions.required_level = 0)
   ' . $sql_to_add . '
   ORDER BY ' . $order_by;
-  firep($sql);
+  firep($sql, 'staff actions');
   $result = db_query($sql, $game_user->id, $game_user->level);
 
   while ($item = db_fetch_object($result)) $data[] = $item;
@@ -149,7 +149,7 @@ function actionlist() {
     AND (actions.required_level <= %d OR actions.required_level = 0)
   ' . $sql_to_add . '
   ORDER BY equipment.required_level DESC';
-firep($sql);
+firep($sql, 'equipment actions');
   $result = db_query($sql, $game_user->id, $game_user->id, $game_user->level);
 
   while ($item = db_fetch_object($result)) $data[] = $item;
