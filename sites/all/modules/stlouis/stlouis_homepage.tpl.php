@@ -756,13 +756,13 @@ EOF;
       <select name="target">
 EOF;
 
-    if ($game_user->fkey_clans_id)
-      echo ('<option value="clan">Clan</option>');
-    
     if (($game_user->can_broadcast_to_party) ||
       ($game_user->fkey_neighborhoods_id == 75))
       echo ('<option value="neighborhood">' . $hood . '</option>');
 
+    if ($game_user->fkey_clans_id)
+      echo ('<option value="clan">Clan</option>');
+    
 // TESTING -- users can party chat but it costs 1 Action -- jwc 11Jan2014
 //    if ($elected_official_type == 2 || $game == 'celestial_glory')
 // if a party official
