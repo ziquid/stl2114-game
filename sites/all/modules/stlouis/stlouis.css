@@ -393,6 +393,11 @@ li {
 
 .quests .quest-loot {
   color: #d4c41c;
+  margin-left: 4px !important;
+  padding: 2px 0 2px 8px;
+  border-left: 1px solid #35e;
+  border-bottom: 1px solid #35e;
+  border-radius: 10px 0 0 3px;
 }
 
 
