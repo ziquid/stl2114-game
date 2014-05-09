@@ -216,6 +216,11 @@ li {
 }
 
 
+.failed .quest-required {
+  width: 100%;
+}
+
+
 .quests .x2 {
   color: #208820;
   font-weight: bold;

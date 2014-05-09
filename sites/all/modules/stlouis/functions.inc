@@ -1421,10 +1421,13 @@ EOF;
     </div>
 EOF;
 
-    if ($item->chance_of_loot + $item->chance_of_loot_staff > 0)
+    if (($item->chance_of_loot + $item->chance_of_loot_staff) > 0)
       echo <<< EOF
     <div class="quest-loot">
-      Chance of Loot!
+      Equipment Disbursement Percentage, Estimated:
+      <span>
+        $item->chance_of_loot%
+      </span>
     </div>
 EOF;
 
