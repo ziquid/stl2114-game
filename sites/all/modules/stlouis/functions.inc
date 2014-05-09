@@ -1336,9 +1336,6 @@ EOF;
     <div class="quest-requisites">
       // Requisites //
     </div>
-    <div class="quest-required_energy">
-      $item->required_energy $energy
-    </div>
 EOF;
 
   // required land

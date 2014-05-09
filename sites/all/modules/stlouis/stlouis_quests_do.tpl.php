@@ -73,17 +73,25 @@
     if ($quantity->quantity < $game_quest->equipment_1_required_quantity) {
 
       $quest_succeeded = FALSE;
-      $outcome_reason = '<div class="quest-failed">' . t('Failed!') .
-        '</div><div class="quest-required_stuff missing centered">Missing
-        <div class="quest-required_equipment"><a href="/' . $game .
-        '/equipment_buy/' .
-        $arg2 . '/' . $game_quest->fkey_equipment_1_required_id . '/' .
-        ($game_quest->equipment_1_required_quantity - $quantity->quantity) .
-        '"><img src="/sites/default/files/images/equipment/' .
-        $game . '-' . $game_quest->fkey_equipment_1_required_id . '.png"
-        width="48"></a></div>&nbsp;x' .
-        $game_quest->equipment_1_required_quantity .
-        '</div>';
+      $outcome_reason = '<div class="quests failed">
+          <div class="title">' .
+            t('∆ Equipment Requisite ∆<br/><span>Missing</span>') . '
+          </div>
+          <div class="quest-required">
+            <a href="/' . $game . '/equipment_buy/' . $arg2 . '/' .
+              $game_quest->fkey_equipment_1_required_id . '/' .
+              ($game_quest->equipment_1_required_quantity - $quantity->quantity)
+              . '">
+              <img width="48"
+                src="/sites/default/files/images/equipment/' .
+                $game . '-' . $game_quest->fkey_equipment_1_required_id .
+                '.png" />
+            </a>
+            <div class="quest-required-num">
+              x' . $game_quest->equipment_1_required_quantity . '
+            </div>
+          </div>
+        </div>';
       $ai_output = 'quest-failed need-equipment-' .
         $game_quest->fkey_equipment_1_required_id;
     }
