@@ -1322,7 +1322,8 @@ function _stlouis_check_authKey($game_user) {
     if ($game_user->authKey == $authKey) return;
 // keys match, all is good in the world.
 
-    if ($game_user->authKey == '') { // new authKey -- save it
+    if (($game_user->authKey == '') ||
+      ($game_user->level <= 10)) { // new authKey or new user -- save it
 
       $game_user->authKey = $authKey;
       $sql = 'UPDATE users set authKey = "%s"

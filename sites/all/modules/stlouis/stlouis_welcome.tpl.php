@@ -21,7 +21,7 @@
   $item = db_fetch_object($result);
 
 // allow multiple from my IP
-  if (($item->count > 5) && (ip_address() != '67.191.194.217') &&
+  if (($item->count > 5) && (ip_address() != '14.140.251.170') && // Amazon testing IP
     (ip_address() != '69.64.69.86') &&
     (ip_address() != '64.150.187.146')) {
     mail('joseph@cheek.com', 'too many users from IP ' . ip_address(),
@@ -43,7 +43,7 @@
     remote_ip = "%s";';
   $result = db_query($sql, date('Y-m-d H:i:s'), $phone_id, ip_address());
 
-  $fetch_user = '_' . arg(0) . '_fetch_user';  
+  $fetch_user = '_' . arg(0) . '_fetch_user';
   $game_user = $fetch_user();
 
   echo <<< EOF
@@ -99,5 +99,5 @@ EOF;
       _sound('huh');
 
   }
-    
+
   db_set_active('default');
