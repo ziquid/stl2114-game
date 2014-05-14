@@ -330,7 +330,8 @@ var map = L.map('leafmap',
           [38.5336, -90.3222],
           [38.7278, -90.1780]
         ],
-      zoom: 11
+      zoom: 11,
+      attributionControl: false
     }
   ).setView([38.64, -90.24], 11);
 
@@ -344,8 +345,6 @@ L.tileLayer('http://{s}.tiles.ziquid.com/tiles/2114_map/{z}/{x}/{y}.png',
       ]
     }
   ).addTo(map);
-
-L.control.attribution(false);
 
 window.onload = function() {
 
