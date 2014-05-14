@@ -325,12 +325,13 @@ EOF;
 <script type="text/javascript">
 
 var map = L.map('leafmap').setView([38.64, -90.24], 11);
-/*
-L.tileLayer('http://korona.geog.uni-heidelberg.de:8003/tms_h.ashx?x={x}&y={y}&z={z}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+
+L.tileLayer('http://tiles.ziquid.com/tiles/2114_map/{z}/{x}/{y}.png',
+  {
     maxZoom: 18
-}).addTo(map);
-*/
+  }
+).addTo(map);
+
 window.onload = function() {
 
   document.getElementById('map_mid').style.display = 'none';
