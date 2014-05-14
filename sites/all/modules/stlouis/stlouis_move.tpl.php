@@ -336,7 +336,8 @@ var map = L.map('leafmap',
 
 L.tileLayer('http://{s}.tiles.ziquid.com/tiles/2114_map/{z}/{x}/{y}.png',
     {
-      maxZoom: 18,
+      minZoom: 11,
+      maxZoom: 17,
       maxBounds: [
         [-90.3222,38.5336],
         [-90.178, 38.7278]
