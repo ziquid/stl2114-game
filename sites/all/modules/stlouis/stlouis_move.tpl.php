@@ -345,6 +345,8 @@ L.tileLayer('http://{s}.tiles.ziquid.com/tiles/2114_map/{z}/{x}/{y}.png',
     }
   ).addTo(map);
 
+L.control.attribution(false);
+
 window.onload = function() {
 
   document.getElementById('map_mid').style.display = 'none';
