@@ -332,17 +332,17 @@ var map = L.map('leafmap',
         ],
       zoom: 11
     }
-  ).setView([38.64, -90.24]);
+  ).setView([38.64, -90.24], 11);
 
 L.tileLayer('http://{s}.tiles.ziquid.com/tiles/2114_map/{z}/{x}/{y}.png',
-  {
-    maxZoom: 18,
-    maxBounds: [
-      [-90.3222,38.5336],
-      [-90.178, 38.7278]
-    ]
-  }
-).addTo(map);
+    {
+      maxZoom: 18,
+      maxBounds: [
+        [-90.3222,38.5336],
+        [-90.178, 38.7278]
+      ]
+    }
+  ).addTo(map);
 
 window.onload = function() {
 
