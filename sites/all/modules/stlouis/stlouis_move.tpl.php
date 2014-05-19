@@ -357,6 +357,23 @@ EOF;
       }
   });
 
+  var addressPoints = [
+      [38.64, -90.24, "JW1"],
+      [38.641, -90.24, "JW1"],
+    ];
+
+  var markers = L.markerClusterGroup();
+
+  for (var i = 0; i < addressPoints.length; i++) {
+    var a = addressPoints[i];
+    var title = a[2];
+    var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
+    marker.bindPopup(title);
+    markers.addLayer(marker);
+  }
+
+		map.addLayer(markers);
+/*
   var flag_1_blue_blue = new clanFlag({iconUrl:
     '/sites/default/files/images/flags/flag_1_blue_blue.png'});
 
@@ -373,7 +390,7 @@ EOF;
   );
 
   L.marker([38.641, -90.24], {icon: flag_1_div_blue_blue}).addTo(map);
-
+*/
 window.onload = function() {
 
   document.getElementById('map_mid').style.display = 'none';

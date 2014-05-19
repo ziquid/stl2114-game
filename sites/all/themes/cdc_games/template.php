@@ -23,8 +23,27 @@ function cdc_games_preprocess_page(&$vars, $hook) {
       'href' => 'http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css')
     ) ." />\n";
 
+    $vars['styles'] .= '<link '. drupal_attributes(array(
+      'rel' => 'stylesheet',
+      'type' => 'text/css',
+      'href' =>
+        'http://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css')
+    ) ." />\n";
+
+    $vars['styles'] .= '<link '. drupal_attributes(array(
+      'rel' => 'stylesheet',
+      'type' => 'text/css',
+      'href' =>
+        'http://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css')
+    ) ." />\n";
+
     $vars['scripts'] .= '<script '. drupal_attributes(array(
       'src' => 'http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js')
+    ) ."></script>\n";
+
+    $vars['scripts'] .= '<script '. drupal_attributes(array(
+      'src' =>
+              'http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster.js')
     ) ."></script>\n";
 
   }
