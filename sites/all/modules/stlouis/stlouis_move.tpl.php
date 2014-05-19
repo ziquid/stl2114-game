@@ -333,12 +333,12 @@ EOF;
         zoom: 11,
         attributionControl: false
       }
-    ).setView([38.64, -90.24], 11);
+    ).setView([38.64, -90.24], 12);
 
   L.tileLayer('http://{s}.tiles.ziquid.com/tiles/2114_map/current/{z}/{x}/{y}.png',
       {
-        minZoom: 11,
-        maxZoom: 17,
+        minZoom: 12,
+        maxZoom: 18,
         maxBounds: [
           [-90.345,  38.5317],
           [-90.1486, 38.7283]
