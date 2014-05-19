@@ -326,22 +326,22 @@ EOF;
 
   var map = L.map('leafmap',
       {
-        maxBounds: [
-            [38.5, -90.3222],
-            [38.75, -90.1780]
-          ],
+//         maxBounds: [
+//             [38.5317, -90.345],
+//             [38.7283, -90.1486]
+//           ],
         zoom: 11,
         attributionControl: false
       }
     ).setView([38.64, -90.24], 11);
 
-  L.tileLayer('http://{s}.tiles.ziquid.com/tiles/2114_map/{z}/{x}/{y}.png',
+  L.tileLayer('http://{s}.tiles.ziquid.com/tiles/2114_map/current/{z}/{x}/{y}.png',
       {
         minZoom: 11,
         maxZoom: 17,
         maxBounds: [
-          [-90.3222,38.5336],
-          [-90.178, 38.7278]
+          [-90.345,  38.5317],
+          [-90.1486, 38.7283]
         ]
       }
     ).addTo(map);
