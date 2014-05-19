@@ -324,27 +324,44 @@ EOF;
 
 <script type="text/javascript">
 
-var map = L.map('leafmap',
-    {
-      maxBounds: [
-          [38.5336, -90.3222],
-          [38.7278, -90.1780]
-        ],
-      zoom: 11,
-      attributionControl: false
-    }
-  ).setView([38.64, -90.24], 11);
+  var map = L.map('leafmap',
+      {
+        maxBounds: [
+            [38.5336, -90.3222],
+            [38.7278, -90.1780]
+          ],
+        zoom: 11,
+        attributionControl: false
+      }
+    ).setView([38.64, -90.24], 11);
 
-L.tileLayer('http://{s}.tiles.ziquid.com/tiles/2114_map/{z}/{x}/{y}.png',
-    {
-      minZoom: 11,
-      maxZoom: 17,
-      maxBounds: [
-        [-90.3222,38.5336],
-        [-90.178, 38.7278]
-      ]
-    }
-  ).addTo(map);
+  L.tileLayer('http://{s}.tiles.ziquid.com/tiles/2114_map/{z}/{x}/{y}.png',
+      {
+        minZoom: 11,
+        maxZoom: 17,
+        maxBounds: [
+          [-90.3222,38.5336],
+          [-90.178, 38.7278]
+        ]
+      }
+    ).addTo(map);
+
+  var clanFlag = L.Icon.extend({
+      options: {
+//         shadowUrl: 'leaf-shadow.png',
+          iconSize:     [48, 72],
+//         shadowSize:   [50, 64],
+          iconAnchor:   [0, 72],
+//         shadowAnchor: [4, 62],
+          popupAnchor:  [3, 70]
+      }
+  });
+
+  var flag_1_blue_blue = new clanFlag({iconUrl:
+    '/sites/default/files/images/flags/flag_1_blue_blue.png'});
+
+  L.marker([38.64, -90.24], {icon: flag_1_blue_blue}).addTo(map)
+    .bindPopup("JWC");
 
 window.onload = function() {
 
