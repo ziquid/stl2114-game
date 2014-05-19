@@ -373,7 +373,7 @@ EOF;
         {
           icon: new L.icon(
             {
-              iconUrl: '/sites/default/files/images/flags/flag_shadow.png',
+              iconUrl: '/sites/default/files/images/flags/flag_1_blue_blue.png',
 //               iconRetinaUrl: 'my-icon@2x.png',
               iconSize: [48, 72],
               iconAnchor: [0, 72],
