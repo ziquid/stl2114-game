@@ -348,12 +348,12 @@ EOF;
 
   var clanFlag = L.Icon.extend({
       options: {
-//         shadowUrl: 'leaf-shadow.png',
+//         shadowUrl: '/sites/default/files/images/flags/flag_shadow.png',
           iconSize:     [48, 72],
 //         shadowSize:   [50, 64],
           iconAnchor:   [0, 72],
 //         shadowAnchor: [4, 62],
-          popupAnchor:  [3, 70]
+          popupAnchor:  [3, 0]
       }
   });
 

@@ -853,3 +853,8 @@ p.quote {
 }
 
 
+/* LEAFLET */
+
+.leaflet-content-popup-wrapper {
+  background: #102040 !important;
+}
