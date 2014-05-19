@@ -326,29 +326,30 @@ EOF;
 
   var map = L.map('leafmap',
       {
-//         maxBounds: [
-//             [38.5317, -90.345],
-//             [38.7283, -90.1486]
-//           ],
+        maxBounds: [
+            [38.5317, -90.345],
+            [38.7283, -90.1486]
+          ],
         zoom: 11,
-        attributionControl: false
+        attributionControl: false,
+        detectRetina: true
       }
-    ).setView([38.64, -90.24], 12);
+    ).setView([38.64, -90.24], 11);
 
   L.tileLayer('http://{s}.tiles.ziquid.com/tiles/2114_map/current/{z}/{x}/{y}.png',
       {
-        minZoom: 12,
+        minZoom: 11,
         maxZoom: 18,
         maxBounds: [
-          [-90.345,  38.5317],
-          [-90.1486, 38.7283]
+            [38.5317, -90.345],
+            [38.7283, -90.1486]
         ]
       }
     ).addTo(map);
 
   var addressPoints = [
       [38.64, -90.24, "JW1"],
-      [38.6401, -90.24, "JW2"],
+      [38.6402, -90.24, "JW2"],
     ];
 
   var markers = L.markerClusterGroup(
