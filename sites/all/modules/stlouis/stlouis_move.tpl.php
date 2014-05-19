@@ -327,8 +327,8 @@ EOF;
   var map = L.map('leafmap',
       {
         maxBounds: [
-            [38.5336, -90.3222],
-            [38.7278, -90.1780]
+            [38.5, -90.3222],
+            [38.75, -90.1780]
           ],
         zoom: 11,
         attributionControl: false
