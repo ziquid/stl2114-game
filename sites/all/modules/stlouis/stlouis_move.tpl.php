@@ -363,10 +363,16 @@ EOF;
   L.marker([38.64, -90.24], {icon: flag_1_blue_blue}).addTo(map)
     .bindPopup("JWC");
 
-  var flag_2_blue_blue = L.divIcon({className: 'my-div-icon'});
-// you can set .my-div-icon styles in CSS
+  var flag_1_div_blue_blue = L.divIcon(
+    {
+      className: 'flag_1_blue_blue',
+      iconSize: [48, 72],
+      iconAnchor: [0,72],
+      html: 'JWC'
+    }
+  );
 
-  L.marker([38.65, -90.24], {icon: flag_2_blue_blue}).addTo(map);
+  L.marker([38.641, -90.24], {icon: flag_1_div_blue_blue}).addTo(map);
 
 window.onload = function() {
 

@@ -858,3 +858,9 @@ p.quote {
 .leaflet-popup-content-wrapper {
   background: #102040 !important;
 }
+
+
+.leaflet-marker-icon.flag_1_blue_blue {
+  background: url(/sites/default/files/images/flags/flag_1_blue_blue.png)
+    top left no-repeat;
+}
