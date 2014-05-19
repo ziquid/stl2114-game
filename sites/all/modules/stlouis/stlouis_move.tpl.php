@@ -359,10 +359,23 @@ EOF;
 
   var addressPoints = [
       [38.64, -90.24, "JW1"],
-      [38.641, -90.24, "JW1"],
+      [38.6401, -90.24, "JW2"],
     ];
 
-  var markers = L.markerClusterGroup();
+  var markers = L.markerClusterGroup(
+    {
+      iconCreateFunction: function(cluster) {
+        return new L.DivIcon(
+          {
+            className: 'flag_1_blue_blue',
+            iconSize: [48, 72],
+            iconAnchor: [0,72],
+            html: cluster.getChildCount()
+          }
+        );
+      }
+    }
+  );
 
   for (var i = 0; i < addressPoints.length; i++) {
     var a = addressPoints[i];
