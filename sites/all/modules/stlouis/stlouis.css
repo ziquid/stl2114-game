@@ -860,6 +860,12 @@ p.quote {
 }
 
 
+.leaflet-marker-icon span {
+  padding-left: 3px;
+  padding-top: 3px;
+}
+
+
 .leaflet-marker-icon.flag_1_blue_blue {
   background: url(/sites/default/files/images/flags/flag_1_blue_blue.png)
     top left no-repeat;

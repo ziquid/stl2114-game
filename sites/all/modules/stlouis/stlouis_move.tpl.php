@@ -361,7 +361,7 @@ EOF;
             className: 'flag_1_blue_blue',
             iconSize: [48, 72],
             iconAnchor: [0,72],
-            html: cluster.getChildCount()
+            html: '<span>(' . cluster.getChildCount() . ')</span>';
           }
         );
       }
@@ -378,7 +378,7 @@ EOF;
               className: 'flag_1_blue_blue',
               iconSize: [48, 72],
               iconAnchor: [0,72],
-              html: title
+              html: '<span>' . title . '</span>'
             }
           ),
           title: title
