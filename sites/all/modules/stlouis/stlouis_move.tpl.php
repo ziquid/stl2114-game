@@ -363,6 +363,11 @@ EOF;
   L.marker([38.64, -90.24], {icon: flag_1_blue_blue}).addTo(map)
     .bindPopup("JWC");
 
+  var flag_2_blue_blue = L.divIcon({className: 'my-div-icon'});
+// you can set .my-div-icon styles in CSS
+
+  L.marker([38.65, -90.24], {icon: flag_2_blue_blue}).addTo(map);
+
 window.onload = function() {
 
   document.getElementById('map_mid').style.display = 'none';
