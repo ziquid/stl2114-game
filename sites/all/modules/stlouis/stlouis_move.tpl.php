@@ -336,6 +336,7 @@ EOF;
       }
     ).setView([38.64, -90.24], 11);
 
+  L.Browser.retina = true;
   L.tileLayer('http://{s}.tiles.ziquid.com/tiles/2114_map/current/{z}/{x}/{y}.png',
       {
         minZoom: 11,
@@ -372,18 +373,14 @@ EOF;
     var title = a[2];
     var marker = L.marker(new L.LatLng(a[0], a[1]),
         {
-          icon: new L.icon(
+          icon: new L.DivIcon(
             {
-              iconUrl: '/sites/default/files/images/flags/flag_1_blue_blue.png',
-//               iconRetinaUrl: 'my-icon@2x.png',
+              className: 'flag_1_blue_blue',
               iconSize: [48, 72],
-              iconAnchor: [0, 72],
-//               popupAnchor: [-3, -76],
-//               shadowUrl: 'my-icon-shadow.png',
-//               shadowRetinaUrl: 'my-icon-shadow@2x.png',
-//               shadowSize: [68, 95],
-//               shadowAnchor: [22, 94]
-              }),
+              iconAnchor: [0,72],
+              html: title
+            }
+          ),
           title: title
         }
       );
