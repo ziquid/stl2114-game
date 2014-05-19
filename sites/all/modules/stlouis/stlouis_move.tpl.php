@@ -380,8 +380,8 @@ EOF;
               iconAnchor: [0,72],
               html: '<span>' + title + '</span>'
             }
-          ),
-          title: title
+          )
+//           title: title
         }
       );
     marker.bindPopup(title);
