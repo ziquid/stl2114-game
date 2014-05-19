@@ -361,7 +361,7 @@ EOF;
             className: 'flag_1_blue_blue',
             iconSize: [48, 72],
             iconAnchor: [0,72],
-            html: '<span>(' + cluster.getChildCount() + ')</span>';
+            html: '<span>(' + cluster.getChildCount() + ')</span>'
           }
         );
       }
