@@ -378,7 +378,7 @@ EOF;
   for (var i = 0; i < Drupal.settings.mapdata.flags.length; i++) {
     var a = Drupal.settings.mapdata.flags[i];
     var title = a['acronym'];
-    var marker = L.marker(new L.LatLng(a['lat'], a['long'),
+    var marker = L.marker(new L.LatLng(a['lat'], a['long']),
         {
           icon: new L.DivIcon(
             {
