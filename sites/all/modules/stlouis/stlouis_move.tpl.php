@@ -326,7 +326,7 @@ EOF;
   while ($item = db_fetch_object($result)) $data[] = $item;
 
   $mapdata = array('flags' => $data);
-  drupal_add_js($mapdata, 'setting');
+  drupal_add_js(array('mapdata' => $mapdata), 'setting');
 
   echo <<< EOF
     </map>
@@ -360,11 +360,6 @@ EOF;
       }
     ).addTo(map);
 
-  var addressPoints = [
-      [38.64, -90.24, "JW1"],
-      [38.6402, -90.24, "JW2"],
-    ];
-
   var markers = L.markerClusterGroup(
     {
       iconCreateFunction: function(cluster) {
@@ -380,10 +375,10 @@ EOF;
     }
   );
 
-  for (var i = 0; i < addressPoints.length; i++) {
-    var a = addressPoints[i];
-    var title = a[2];
-    var marker = L.marker(new L.LatLng(a[0], a[1]),
+  for (var i = 0; i < Drupal.settings.mapdata.flags.length; i++) {
+    var a = Drupal.settings.mapdata.flags[i];
+    var title = a['acronym'];
+    var marker = L.marker(new L.LatLng(a['lat'], a['long'),
         {
           icon: new L.DivIcon(
             {
