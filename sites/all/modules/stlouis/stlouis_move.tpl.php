@@ -372,7 +372,8 @@ EOF;
           }
         );
       },
-      maxClusterRadius: 12
+      maxClusterRadius: 12,
+      zoomToBoundsOnClick: false
     }
   );
 
