@@ -324,7 +324,7 @@ EOF;
   $result = db_query($sql);
   $data = array();
   while ($item = db_fetch_object($result)) $data[] = $item;
-
+firep($data, 'map data');
   $mapdata = array('flags' => $data);
   drupal_add_js(array('mapdata' => $mapdata), 'setting');
 
