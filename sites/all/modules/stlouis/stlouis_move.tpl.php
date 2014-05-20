@@ -366,8 +366,8 @@ EOF;
         return new L.DivIcon(
           {
             className: 'flag_1_blue_blue',
-            iconSize: [48, 72],
-            iconAnchor: [0,72],
+            iconSize: [48, 48],
+            iconAnchor: [3, 47],
             html: '<span>(' + cluster.getChildCount() + ')</span>'
           }
         );
@@ -385,15 +385,15 @@ EOF;
           icon: new L.DivIcon(
             {
               className: 'flag_1_blue_blue',
-              iconSize: [48, 72],
-              iconAnchor: [0,72],
+              iconSize: [48, 48],
+              iconAnchor: [3, 47],
               html: '<span>' + title + '</span>'
             }
           )
 //           title: title
         }
       );
-    marker.bindPopup(title);
+//    marker.bindPopup(title);
     markers.addLayer(marker);
   }
 
