@@ -325,8 +325,8 @@ EOF;
   $data = array();
   while ($item = db_fetch_object($result)) $data[] = $item;
 
-  dpm($data);
-  drupal_add_js($data, 'setting');
+  $mapdata = array('flags': $data);
+  drupal_add_js($mapdata, 'setting');
 
   echo <<< EOF
     </map>
