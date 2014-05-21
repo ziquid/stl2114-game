@@ -320,7 +320,8 @@ EOF;
     left join clan_members on clan_members.fkey_clans_id = clans.id
     left join users on clan_members.fkey_users_id = users.id
     left join neighborhoods on users.fkey_neighborhoods_id = neighborhoods.id
-    where clan_members.is_clan_leader = 1;';
+    where clan_members.is_clan_leader = 1
+    order by rand();';
   $result = db_query($sql);
   $data = array();
   while ($item = db_fetch_object($result)) $data[] = $item;
@@ -372,8 +373,7 @@ EOF;
           }
         );
       },
-      maxClusterRadius: 12,
-      zoomToBoundsOnClick: false
+      maxClusterRadius: 12
     }
   );
 
