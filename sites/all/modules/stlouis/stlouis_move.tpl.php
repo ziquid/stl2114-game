@@ -366,9 +366,9 @@ EOF;
       iconCreateFunction: function(cluster) {
         return new L.DivIcon(
           {
-            className: 'flag_1_blue_blue',
-            iconSize: [48, 48],
-            iconAnchor: [3, 47],
+            className: 'flags',
+            iconSize: [61, 54],
+            iconAnchor: [3, 53],
             html: '<span>(' + cluster.getChildCount() + ')</span>'
           }
         );

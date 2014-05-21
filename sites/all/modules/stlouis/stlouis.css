@@ -867,7 +867,33 @@ p.quote {
 }
 
 
+.leaflet-marker-icon.flags {
+  background: url(/sites/default/files/images/flags/flags.png)
+    top left no-repeat;
+}
+
+
 .leaflet-marker-icon.flag_1_blue_blue {
   background: url(/sites/default/files/images/flags/flag_1_blue_blue.png)
     top left no-repeat;
 }
+
+
+.leaflet-marker-icon.flag_1_green_green {
+  background: url(/sites/default/files/images/flags/flag_1_green_green.png)
+    top left no-repeat;
+}
+
+
+.leaflet-marker-icon.flag_1_purple_purple {
+  background: url(/sites/default/files/images/flags/flag_1_purple_purple.png)
+    top left no-repeat;
+}
+
+
+.leaflet-marker-icon.flag_1_red_red {
+  background: url(/sites/default/files/images/flags/flag_1_red_red.png)
+    top left no-repeat;
+}
+
+
