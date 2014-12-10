@@ -148,7 +148,7 @@ function drupal_mail($module, $key, $to, $language, $params = array(), $from = N
  * how $message is composed.
  *
  * @param $message
- *  Message array with at least the following elements:
+ *   Message array with at least the following elements:
  *   - id: A unique identifier of the e-mail type. Examples:
  *     'contact_user_copy', 'user_password_reset'.
  *   - to: The mail address or addresses where the message will be sent to. The
@@ -162,8 +162,8 @@ function drupal_mail($module, $key, $to, $language, $params = array(), $from = N
  *   - subject: Subject of the e-mail to be sent. This must not contain any
  *     newline characters, or the mail may not be sent properly.
  *   - body: Message to be sent. Accepts both CRLF and LF line-endings.
- *      E-mail bodies must be wrapped. You can use drupal_wrap_mail() for
- *      smart plain text wrapping.
+ *     E-mail bodies must be wrapped. You can use drupal_wrap_mail() for
+ *     smart plain text wrapping.
  *   - headers: Associative array containing all mail headers.
  *
  * @return
