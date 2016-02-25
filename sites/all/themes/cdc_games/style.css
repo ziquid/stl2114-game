@@ -1054,7 +1054,6 @@ a .event-text {
   margin-right: 2px;
 }
 
-
 .competency-pip.attained {
   border-right: solid 2px #ddd;
 }
@@ -1081,4 +1080,10 @@ form input[type="radio"]:checked + label {
   height: 480px;
   background-color: rgba(0, 0, 0, 0);
 /*   zoom: 0.5; */
+}
+
+
+.arrows {
+  font-size: 125%;
+  line-height: 75%;
 }
