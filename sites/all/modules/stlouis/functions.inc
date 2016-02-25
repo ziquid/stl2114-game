@@ -326,7 +326,9 @@ function _show_goal($game_user) {
 
     $extra_title =<<< EOF
 <div class="title goal-achieved">
-  Goal Achievement &gt;&gt; <span class="nowrap">$item->title</span>
+  Goal Achievement
+  <span class="arrows">&raquo; </span>
+  <span class="nowrap">$item->title</span>
 </div>
 EOF;
 
@@ -361,7 +363,7 @@ EOF;
   echo <<< EOF
 <div class="goals $current">
   $extra_title
-  <div class="title">$next <span class="arrows">&raquo;</span>
+  <div class="title">$next <span class="arrows">&raquo; </span>
     <span class="nowrap">$item->title</span>
   </div>
   <div class="desc-wrapper">

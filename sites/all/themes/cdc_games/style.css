@@ -1082,8 +1082,3 @@ form input[type="radio"]:checked + label {
 /*   zoom: 0.5; */
 }
 
-
-.arrows {
-  font-size: 125%;
-  line-height: 75%;
-}

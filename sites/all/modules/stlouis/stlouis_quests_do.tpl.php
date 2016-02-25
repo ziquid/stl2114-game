@@ -1027,12 +1027,14 @@ firep($qg);
 
     $older_group = $game_quest->group - 1;
     $older_missions_html =<<< EOF
-<a href="/$game/quests/$arg2/$older_group">&lt;((</a>
+<a href="/$game/quests/$arg2/$older_group">
+  <span class="arrows big">&lsaquo;&lsaquo;&lsaquo;</span>
+</a>
 EOF;
 
   } else {
 
-    $older_missions_html = '((';
+    $older_missions_html = '<span class="arrows big">&lsaquo;&lsaquo;</span>';
 
   }
 
@@ -1046,12 +1048,14 @@ firep($item);
 
     $newer_group = $game_quest->group + 1;
     $newer_missions_html =<<< EOF
-<a href="/$game/quests/$arg2/$newer_group">))&gt;</a>
+<a href="/$game/quests/$arg2/$newer_group">
+  <span class="arrows big">&rsaquo;&rsaquo;&rsaquo;</span>
+</a>
 EOF;
 
   } else {
 
-    $newer_missions_html = '))';
+    $newer_missions_html = '<span class="arrows big">&rsaquo;&rsaquo;</span>';
 
   }
 
