@@ -361,7 +361,7 @@ EOF;
   echo <<< EOF
 <div class="goals $current">
   $extra_title
-  <div class="title">$next &gt;&gt;
+  <div class="title">$next <!--&gt;&gt;-->&raquo;
     <span class="nowrap">$item->title</span>
   </div>
   <div class="desc-wrapper">
