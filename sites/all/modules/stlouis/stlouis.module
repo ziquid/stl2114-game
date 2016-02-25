@@ -1780,7 +1780,11 @@ next_level: $next_level), s/he moves from $game_user->level to one more";
     _sound('levelup');
 
     $extra_messages .= '<div class="level-up">
-      <div class="title">&lt;&lt;&lt; Level Increase Attained &gt;&gt;&gt;</div>';
+      <div class="title">
+        <span class="arrows">&lsaquo;&lsaquo;&lsaquo;</span>
+        Level Increase Attained
+        <span class="arrows">&rsaquo;&rsaquo;&rsaquo;</span>
+      </div>';
 
     if ($game_user->level >= 6) {
 
