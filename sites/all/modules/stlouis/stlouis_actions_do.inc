@@ -1062,7 +1062,7 @@ firep(time());
             array('@min' => $min, '@sec' => $sec)) . '
         </div>';
 
-mail('joseph@cheek.com', $target_name . ' tried to join a clan',
+mail('joseph@ziquid.com', $target_name . ' tried to join a clan',
   "but isn't allowed to for $min:$sec longer.");
 
       return FALSE;
@@ -1258,7 +1258,7 @@ mail('joseph@cheek.com', $target_name . ' tried to join a clan',
           array('@name' => $target_name)) . '
       </div>';
 
-mail('joseph@cheek.com', $target_name . ' has been forcibly removed',
+mail('joseph@ziquid.com', $target_name . ' has been forcibly removed',
   'from the clan in which s/he was a member.');
 
     return TRUE;
@@ -3684,7 +3684,7 @@ firep($item);
       values (%d, %d, "%s");';
     $result = db_query($sql, $game_user->id, $account_num, $password);
 
-//    mail('joseph@cheek.com', 'bank account ' . $account_num . ' created',
+//    mail('joseph@ziquid.com', 'bank account ' . $account_num . ' created',
 //      $game_user->username . ' opened it.');
 
     $outcome_reason .=<<< EOF
@@ -3776,7 +3776,7 @@ firep($item);
 // no need to reprocess; automatically
     $balance = number_format($item->balance);
 
-    mail('joseph@cheek.com', 'bank account ' . $account_num . ' closed',
+    mail('joseph@ziquid.com', 'bank account ' . $account_num . ' closed',
       'by ' . $game_user->username . ', who pocketed ' . $balance .
       ' ' . $game_user->values . '.');
 
@@ -3829,7 +3829,7 @@ EOF;
 <div class="action-effect">No accounts found!</div>
 EOF;
 
-//    mail('joseph@cheek.com', 'bank account check', 'by ' .
+//    mail('joseph@ziquid.com', 'bank account check', 'by ' .
 //      $game_user->username . ', who has ' . sizeof($data) . ' account(s)');
 
     return TRUE;
@@ -3901,7 +3901,7 @@ firep($item);
       where id = %d;';
     $result = db_query($sql, $password, $item->id);
 
-//    mail('joseph@cheek.com', 'bank account ' . $account_num .
+//    mail('joseph@ziquid.com', 'bank account ' . $account_num .
 //      ' password changed', 'by ' . $game_user->username . '.');
 
     $outcome_reason .=<<< EOF
@@ -4070,7 +4070,7 @@ firep($item);
       $amount * 0.8, $item->balance + $amount * 0.8);
 
 /*
-    mail('joseph@cheek.com', 'bank account deposit to ' . $account_num . '.',
+    mail('joseph@ziquid.com', 'bank account deposit to ' . $account_num . '.',
       'by ' . $game_user->username . ', who deposited ' .
       number_format($amount) . ' less ' . number_format($amount * 0.2) .
       ' in fees.  The ' .
@@ -4255,7 +4255,7 @@ firep($item);
     }
 
 /*
-    mail('joseph@cheek.com', 'bank account withdrawal from ' . $account_num .
+    mail('joseph@ziquid.com', 'bank account withdrawal from ' . $account_num .
       '.', 'by ' . $game_user->username . ', who withdrew ' .
       number_format($amount) . '.  The ' .
       'current balance in the account is now ' . $new_balance . '.  ' .
@@ -4437,7 +4437,7 @@ EOF;
       $result = db_query($sql);
       $item2 = db_fetch_object($result); // limited to 1 in db;
 
-//      mail('joseph@cheek.com', $item2->count . ' neighborhoods out of treats',
+//      mail('joseph@ziquid.com', $item2->count . ' neighborhoods out of treats',
 //        'hopefully ' . $item->name . ' will get more soon!');
 
       return FALSE;
@@ -4915,7 +4915,7 @@ EOF;
 
       }
 
-//      mail('joseph@cheek.com', 'The grinch has visited ' . $item->name,
+//      mail('joseph@ziquid.com', 'The grinch has visited ' . $item->name,
 //        abs($item->special_int) . ' more carols until it has been restored!');
 
       return TRUE;
@@ -4934,7 +4934,7 @@ EOF;
       $result = db_query($sql);
       $item2 = db_fetch_object($result); // limited to 1 in db;
 
-      mail('joseph@cheek.com', $item2->count .
+      mail('joseph@ziquid.com', $item2->count .
         ' neighborhoods tired of caroling',
         'hopefully ' . $item->name . ' will get more soon!');
 */

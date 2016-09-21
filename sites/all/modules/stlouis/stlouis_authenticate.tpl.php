@@ -30,12 +30,12 @@
     (substr(arg(2), 0, 3) != 'ms=') // unidentified MS user
   ) {
 /*
-      mail('joseph@cheek.com', 'unauthorized client',
+      mail('joseph@ziquid.com', 'unauthorized client',
        	"Unauthorized user agent of " . $_SERVER['HTTP_USER_AGENT'] .
         " for phone_id " . check_plain(arg(2)));
 */
       echo t('This game must be accessed through an authorized client.  ');
-      echo t('Please e-mail support@cheek.com if you have any questions.');
+      echo t('Please e-mail zipport@ziquid.com if you have any questions.');
       exit;
 
   }
@@ -56,7 +56,7 @@
     $set_value($game_user->id, 'user_agent', $user_agent);
     $set_value($game_user->id, 'last_IP', $ip_addr);
 
-//    mail('joseph@cheek.com', 'successful user authentication',
+//    mail('joseph@ziquid.com', 'successful user authentication',
 //      $game_user->username . ' has successfully entered his or her password.');
 
     db_set_active('default');
@@ -64,7 +64,7 @@
 
   }
 
-//  mail('joseph@cheek.com', 'password challenge',
+//  mail('joseph@ziquid.com', 'password challenge',
 //    $game_user->username . ' has been asked for his or her password.');
 
   echo <<< EOF
@@ -82,7 +82,7 @@
     password?
   </p>
   <p class="second">
-    If you can't remember it, you can e-mail <strong>support@cheek.com</strong>
+    If you can't remember it, you can e-mail <strong>zipport@ziquid.com</strong>
     and we can reset it for you.
   </p>
   <div class="ask-name">

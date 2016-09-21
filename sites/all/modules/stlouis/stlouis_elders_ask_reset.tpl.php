@@ -28,7 +28,7 @@
   Please e-mail us
 </div>
 <div class="subtitle">
-  E-mail us at <strong>support@cheek.com</strong> to have your character reset
+  E-mail us at <strong>zipport@ziquid.com</strong> to have your character reset
 </div>
 EOF;
     

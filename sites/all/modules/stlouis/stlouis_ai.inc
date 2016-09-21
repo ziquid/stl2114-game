@@ -15,7 +15,7 @@ define('CONSERVE_MONEY', 2);
     $load = sys_getloadavg();
 
 //    if ($load[0] > 7) {
-//      mail('joseph@cheek.com', 'not performing AI moves for ' .
+//      mail('joseph@ziquid.com', 'not performing AI moves for ' .
 //        $game_name_full, "since load average is $load[0]");
       return;
 
@@ -25,7 +25,7 @@ define('CONSERVE_MONEY', 2);
     lock_init();
 
     if (!lock_acquire('ai_move', 1.0)) {
-//      mail('joseph@cheek.com', 'not performing AI moves for ' .
+//      mail('joseph@ziquid.com', 'not performing AI moves for ' .
 //        $game_name_full, "since lock could not be acquired");
       db_set_active('game_' . $game);
       return;
@@ -46,7 +46,7 @@ define('CONSERVE_MONEY', 2);
     _ai_do('have_num_alders', 1) && _ai_do('build');
 
 if ((mt_rand(0, 99) < -5) || (arg(2) == 'abc123'))
-    mail('joseph@cheek.com', 'performing AI moves for ' .
+    mail('joseph@ziquid.com', 'performing AI moves for ' .
       $game_name_full, $ai_output);
 
     db_set_active('default');  
@@ -78,7 +78,7 @@ if ((mt_rand(0, 99) < -5) || (arg(2) == 'abc123'))
 // failsafe hack
 
     if (strlen($ai_output) > 25000) { // too long -- kill script
-//      mail('joseph@cheek.com', 'ai output too long!', $ai_output);
+//      mail('joseph@ziquid.com', 'ai output too long!', $ai_output);
       db_set_active('default');
       return;
     }

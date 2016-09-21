@@ -335,7 +335,7 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
           $points_to_add = 10;
 
-//          mail('joseph@cheek.com', "Zombie $item->id switched parties",
+//          mail('joseph@ziquid.com', "Zombie $item->id switched parties",
 //            "$item->username was beaten by super debater $game_user->username"
 //            . " and has switched to $party->party_title!");
 
@@ -360,7 +360,7 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
           $points_to_add = 15;
 
-//          mail('joseph@cheek.com', "Zombie $item->id joined a clan",
+//          mail('joseph@ziquid.com', "Zombie $item->id joined a clan",
 //            "$item->username was beaten by super debater $game_user->username"
 //            . " and has switched to $clan_name->name!");
 
@@ -412,14 +412,14 @@ EOF;
 
           $points_to_add = 10;
 
-//          mail('joseph@cheek.com', "Zombie conquered ($item->id)",
+//          mail('joseph@ziquid.com', "Zombie conquered ($item->id)",
 //            "$item->username has five debate losses and has left!");
 
       } else { // not 5 losses yet
 
         $points_to_add = ($item->debates_lost + 1) * 2;
 
-//        mail('joseph@cheek.com', "Zombie beaten but not conquered ($item->id)",
+//        mail('joseph@ziquid.com', "Zombie beaten but not conquered ($item->id)",
 //          "$item->username has less than five debate losses");
 
       } // # of losses
@@ -474,7 +474,7 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
       array('%user' => $game_user->username));
     $result = db_query($sql, $game_user->id, $item->id, $message);
     
-      mail('joseph@cheek.com', 'flag transfer',
+      mail('joseph@ziquid.com', 'flag transfer',
         "$item->username's flag was captured by $game_user->username!");
 
     }
@@ -550,7 +550,7 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
       echo '<div class="subtitle">' . $item->username .
         ' has gained 1000 influence.</div>';
 
-//      mail('joseph@cheek.com', "Zombie $item->id won the debate!",
+//      mail('joseph@ziquid.com', "Zombie $item->id won the debate!",
 //        "growing stronger...");
 
     }
@@ -592,7 +592,7 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
       echo '<div class="subtitle">He or she had a flag,
         but you don\'t get it</div>';
 
-      mail('joseph@cheek.com', 'attempted flag transfer',
+      mail('joseph@ziquid.com', 'attempted flag transfer',
         "$item->username's flag was NOT captured by $game_user->username!");
 
     }

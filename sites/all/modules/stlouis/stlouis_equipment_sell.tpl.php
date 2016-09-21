@@ -20,7 +20,7 @@
   if ($quantity === 'use-quantity') {
     $quantity = check_plain($_GET['quantity']);
 
-//    mail('joseph@cheek.com', "{$link}_sell with use-quantity of $quantity",
+//    mail('joseph@ziquid.com', "{$link}_sell with use-quantity of $quantity",
 //     "user $game_user->username");
   }
 

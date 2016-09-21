@@ -95,7 +95,7 @@ function stlouis_cron() {
 
   if ($zombie_count > 0) {
 
-    mail('joseph@cheek.com', "$zombie_count zombies", 'fyi');
+    mail('joseph@ziquid.com', "$zombie_count zombies", 'fyi');
 
 // move them, enhance experience
     $sql = 'update users set experience = floor(rand() * 1500000) + 1
@@ -1187,7 +1187,7 @@ function _stlouis_save_user_agent($game_user) {
         if (substr($user_list->value, 0, 100) !=
           substr($user_agent, 0, 100)) { // email me if it seems significant
 
-          mail('joseph@cheek.com', 'new user agent',
+          mail('joseph@ziquid.com', 'new user agent',
             'The user-agent of passwordless player ' .
             $game_user->username . ' has just changed from
 
@@ -1201,7 +1201,7 @@ to
 */
       } else { // new user_agent and a password -- gotta authenticate!
 /*
-          mail('joseph@cheek.com', 'new hacking attempt?',
+          mail('joseph@ziquid.com', 'new hacking attempt?',
             'The user-agent of PASSWORDED player ' .
             $game_user->username . ' has just changed from
 
@@ -1254,7 +1254,7 @@ function _stlouis_save_user_IP($game_user) {
 
         _stlouis_set_value($game_user->id, 'last_IP', $ip_addr);
 /*
-        mail('joseph@cheek.com', 'new IP address',
+        mail('joseph@ziquid.com', 'new IP address',
           'The IP address of passwordless player ' .
           $game_user->username . ' has just changed from
 
@@ -1266,7 +1266,7 @@ to
 */
       } else { // new ip address and a password -- gotta authenticate!
 /*
-          mail('joseph@cheek.com', 'new IP address hacking attempt?',
+          mail('joseph@ziquid.com', 'new IP address hacking attempt?',
             'The IP address of PASSWORDED player ' .
             $game_user->username . ' has just changed from
 
@@ -1412,7 +1412,7 @@ function _stlouis_remove_value($fkey_users_id, $key) {
 function _stlouis_get_phoneid() {
 
   if ((substr(arg(2), 0, 3) == 'fb=') || arg(2) == '') {
-    mail('joseph@cheek.com', 'fix ' . arg(0) . '/' . arg(1) . '/' . arg(2),
+    mail('joseph@ziquid.com', 'fix ' . arg(0) . '/' . arg(1) . '/' . arg(2),
       'Referrer is ' . $_SERVER['HTTP_REFERER']);
     echo 'Uhoh! Bad URL ' . arg(0) . '/' . arg(1) . '/' . arg(2) .
       ' from <a href="' . $_SERVER['HTTP_REFERER'] . '">' .
@@ -1572,27 +1572,27 @@ function _stlouis_fetch_user() {
     (substr(arg(2), 0, 3) != 'ms=') // unidentified MS user
   ) {
 /*
-      mail('joseph@cheek.com', 'unauthorized client',
+      mail('joseph@ziquid.com', 'unauthorized client',
         "Unauthorized user agent of " . $_SERVER['HTTP_USER_AGENT'] .
         " for phone_id " . check_plain(arg(2)));
 */
       echo t('This game must be accessed through an authorized client.  ');
-      echo t('Please e-mail support@cheek.com if you have any questions.');
+      echo t('Please e-mail zipport@ziquid.com if you have any questions.');
       exit;
 
   }
 
   if (strpos($arg2, 'cheek.com') !== FALSE) { // Jon?  send headers
-    mail('joseph@cheek.com', 'Jon? headers',
+    mail('joseph@ziquid.com', 'Jon? headers',
     implode('\n', getallheaders()));
-    mail('joseph@cheek.com', 'Jon? headers',
+    mail('joseph@ziquid.com', 'Jon? headers',
     'Jon is back!');
   }
 
   if (($user->uid != 0) &&
     (strpos($_SERVER['HTTP_USER_AGENT'], 'com.cheek') === FALSE)) {
 /*
-    mail('joseph@cheek.com', 'logged-in user access but no com.cheek!',
+    mail('joseph@ziquid.com', 'logged-in user access but no com.cheek!',
       $_SERVER['HTTP_USER_AGENT'] . "\n\n" .
       print_r($user, TRUE));
 */
@@ -1657,7 +1657,7 @@ function _stlouis_fetch_user() {
         where phone_id = "%s";';
       $result = db_query($sql, $phone_id, 'nkc ' . $phone_id);
 
-//      mail('joseph@cheek.com', 'Nook Color Phone ID swap',
+//      mail('joseph@ziquid.com', 'Nook Color Phone ID swap',
 //        "nkc $phone_id is now $phone_id");
     }
 
@@ -1768,7 +1768,7 @@ next_level: $next_level), s/he moves from $game_user->level to one more";
     $next_level = $level->experience;
     if ($next_level == 0) $next_level = 99999999;
 
-// mail('joseph@cheek.com', "$game_user->username leveled up",
+// mail('joseph@ziquid.com', "$game_user->username leveled up",
 // "$m
 
 // after level up:

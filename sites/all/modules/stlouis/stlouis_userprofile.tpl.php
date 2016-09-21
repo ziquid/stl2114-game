@@ -118,7 +118,7 @@ firep($icon_path);
         without a costume!</div>';
       $get_jol = FALSE;
 
-mail('joseph@cheek.com', $game_user->username . ' has no costume but tried to message',
+mail('joseph@ziquid.com', $game_user->username . ' has no costume but tried to message',
  $item->username);
 
     }
@@ -134,7 +134,7 @@ mail('joseph@cheek.com', $game_user->username . ' has no costume but tried to me
         <div class="subtitle">You can\'t party without a ticket!</div>';
       $get_jol = FALSE;
 
-// mail('joseph@cheek.com', $game_user->username . ' (' . $game_user->id .
+// mail('joseph@ziquid.com', $game_user->username . ' (' . $game_user->id .
 //   ') has no tickets but tried to message',
 //  $item->username);
 
@@ -151,7 +151,7 @@ mail('joseph@cheek.com', $game_user->username . ' has no costume but tried to me
         <div class="subtitle">You must check out all the people first</div>';
       $get_jol = FALSE;
 
-// mail('joseph@cheek.com', $game_user->username . ' has no JoLs but tried to message',
+// mail('joseph@ziquid.com', $game_user->username . ' has no JoLs but tried to message',
 //  $item->username);
 
     }
@@ -168,7 +168,7 @@ mail('joseph@cheek.com', $game_user->username . ' has no costume but tried to me
           from each person</div>';
       $get_jol = FALSE;
 
-// mail('joseph@cheek.com', $game_user->username . ' tried to give a second JoL message',
+// mail('joseph@ziquid.com', $game_user->username . ' tried to give a second JoL message',
 //  'to ' . $item->username);
 
     }
@@ -183,7 +183,7 @@ mail('joseph@cheek.com', $game_user->username . ' has no costume but tried to me
         where fkey_equipment_id = 27 and fkey_users_id = %d;';
       $result = db_query($sql, $game_user->id);
 */
-// mail('joseph@cheek.com', $game_user->username . ' gave a JoL message',
+// mail('joseph@ziquid.com', $game_user->username . ' gave a JoL message',
 //  'to ' . $item->username);
 
       echo '<div class="title">Sorry!</div>

@@ -52,7 +52,7 @@
 </div>
 EOF;
 
-//      mail('joseph@cheek.com', "Zombie $zombie_id has moved to $location",
+//      mail('joseph@ziquid.com', "Zombie $zombie_id has moved to $location",
 //        "due to action from $game_user->username.");
 
   } else {
@@ -67,7 +67,7 @@ EOF;
 </div>
 EOF;
 
-      mail('joseph@cheek.com', "Zombie $zombie_id cannot move to $location",
+      mail('joseph@ziquid.com', "Zombie $zombie_id cannot move to $location",
         "due to action from $game_user->username.");
 
   }

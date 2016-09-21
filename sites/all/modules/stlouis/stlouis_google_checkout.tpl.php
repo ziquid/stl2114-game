@@ -40,7 +40,7 @@
 //	  $result = db_query($sql, $game_user->id, $msg);
 	  
     $msg = print_r($_POST, true);
-	  mail('joseph@cheek.com', $game . ' Google Checkout Luck purchase', $msg);
+	  mail('joseph@ziquid.com', $game . ' Google Checkout Luck purchase', $msg);
 
 //  }
 //  drupal_goto($game . '/elders/' . $phone_id);

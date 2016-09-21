@@ -12,7 +12,7 @@
   if ($quantity === 'use-quantity') {
     $quantity = check_plain($_GET['quantity']);
 
-//    mail('joseph@cheek.com', "agent_hire with use-quantity of $quantity",
+//    mail('joseph@ziquid.com', "agent_hire with use-quantity of $quantity",
 //     "user $game_user->username");
 
   }

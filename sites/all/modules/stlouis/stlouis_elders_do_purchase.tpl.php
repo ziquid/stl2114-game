@@ -5,7 +5,7 @@
   $fetch_user = '_' . arg(0) . '_fetch_user';
   $fetch_header = '_' . arg(0) . '_header';
 
-// mail('joseph@cheek.com', 'testing 5', 'got here!');
+// mail('joseph@ziquid.com', 'testing 5', 'got here!');
 
   $purchasing_luck = TRUE;
   $game_user = $fetch_user();
@@ -35,13 +35,13 @@
       $fp = fopen($appleURL, 'rb', false, $ctx);
 
       if (!$fp)
-        mail('joseph@cheek.com', 'unable to verify Apple receipt',
+        mail('joseph@ziquid.com', 'unable to verify Apple receipt',
           'could not fopen() ' . $appleURL . '.');
 
       $response_json = stream_get_contents($fp);
 
       if ($response_json === FALSE)
-        mail('joseph@cheek.com', 'unable to verify Apple receipt',
+        mail('joseph@ziquid.com', 'unable to verify Apple receipt',
           'could not read data from ' . $appleURL . 'due to error
 ' . $php_errormsg . '.');
 
@@ -51,7 +51,7 @@ var_dump($response);
 $response_dump = ob_get_contents();
 ob_end_clean();
 
-      mail('joseph@cheek.com', 'iOS receipt check response', 
+      mail('joseph@ziquid.com', 'iOS receipt check response', 
         'receipt_data is ' . $receipt_data . 
         'response is: ' . $response_dump . '
 response_json is: ' . $response_json . '
@@ -98,7 +98,7 @@ response status is: ' . $response->status);
 // stop iOS luck hacking
     if (arg(4) == 'abc123') $luck = 0;
 
-// mail('joseph@cheek.com', 'testing 30', "luck is $luck");
+// mail('joseph@ziquid.com', 'testing 30', "luck is $luck");
     
     $sql = 'update users set luck = luck + %d
       where id = %d;';
@@ -112,7 +112,7 @@ response status is: ' . $response->status);
             . ')'; 
     $result = db_query($sql, $game_user->id, $msg);
     
-    mail('joseph@cheek.com', $game . ' Luck purchase', $msg);
+    mail('joseph@ziquid.com', $game . ' Luck purchase', $msg);
 
   }
 //  drupal_goto($game . '/elders/' . $phone_id);

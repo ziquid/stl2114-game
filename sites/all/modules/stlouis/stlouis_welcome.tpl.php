@@ -24,11 +24,11 @@
   if (($item->count > 5) && (ip_address() != '14.140.251.170') && // Amazon testing IP
     (ip_address() != '69.64.69.86') &&
     (ip_address() != '64.150.187.146')) {
-    mail('joseph@cheek.com', 'too many users from IP ' . ip_address(),
+    mail('joseph@ziquid.com', 'too many users from IP ' . ip_address(),
       'The system successfully blocked an attempt to register user number ' .
       $item->count . ' (' . $arg2 . ').');
     echo 'Error E-2242: ' . $arg2 .
-      '.  Please email <strong>support@cheek.com</strong>.';
+      '.  Please email <strong>zipport@ziquid.com</strong>.';
     exit();
   }
 

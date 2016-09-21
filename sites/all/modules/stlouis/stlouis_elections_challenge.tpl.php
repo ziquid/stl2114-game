@@ -388,13 +388,13 @@ firep("His/her $extra_defending_votes voters vote for him/her");
 
       $extra_votes += 10000;
 firep('10000 extra voters spontaneously arrive to vote for you!');
-mail('joseph@cheek.com', 'Alder in training hood has too much endurance!',
+mail('joseph@ziquid.com', 'Alder in training hood has too much endurance!',
   "$item->username [$opp_influence] in $location is voted out of office");
 
     } else if ($my_influence > 100000) { // challenger has too much influence
 // do not allow him/her to challenge
 
-mail('joseph@cheek.com',
+mail('joseph@ziquid.com',
   'Challenger for Alder in training hood has too much influence!',
   "$game_user->username [$my_influence] in $location " .
   'is not allowed to challenge.');
@@ -531,7 +531,7 @@ $ip_array[$ip_key]++;
       $sql = 'delete from elected_officials where fkey_users_id = %d;';
       db_query($sql, $voter->id);
 /*
-      mail('joseph@cheek.com', 'moving ' . $voter->username .
+      mail('joseph@ziquid.com', 'moving ' . $voter->username .
         ' to Forest Park', 'as s/he was voter number ' .
         $ip_array[$ip_key] . ' at IP address ' .
         $voter->last_IP . ' in ' . $location . '.');
@@ -992,12 +992,12 @@ Extra defending votes: $extra_defending_votes
 $residents residents";
 
   if (($item->ep_id == 1) && ($votes < 0)) // mail me hood tosses
-    mail('joseph@cheek.com', "election results" /* for $game_user->username " .
+    mail('joseph@ziquid.com', "election results" /* for $game_user->username " .
       "[$my_influence] vs. $item->username [$opp_influence] in $location" */,
       $message);
     
 //  if ($item->ep_id >= 28) // and house  challenges
-//    mail('joseph@cheek.com', "house seat results (district $district seat " .
+//    mail('joseph@ziquid.com', "house seat results (district $district seat " .
 //    "$item->ep_id)", $message);
     
   $sql = 'insert into challenge_history

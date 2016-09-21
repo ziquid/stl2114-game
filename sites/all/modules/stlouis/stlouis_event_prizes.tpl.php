@@ -48,7 +48,7 @@ EOF;
     echo '<div class="title">Top ' . $top . ' players get ' . $quantity .
       ' of equipment #' . $prize_id . '</div>';
 
-    mail('joseph@cheek.com', 'event prizes',
+    mail('joseph@ziquid.com', 'event prizes',
       'Top ' . $top . ' players get ' . $quantity .
       ' of equipment #' . $prize_id . '.');
 

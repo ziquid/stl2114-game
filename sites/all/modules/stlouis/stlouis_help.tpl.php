@@ -22,7 +22,7 @@ Help / FAQ
   we need to tell you that we moderate these for appropriateness.&nbsp;
   We have a filter in place for profanity on user messages; you can block
   users from sending you messages at all; and you can post forum messages
-  or send e-mail to us at support@cheek.com if you have complaints or
+  or send e-mail to us at zipport@ziquid.com if you have complaints or
   need assistance.&nbsp; We occasionally lock or delete harassing forum
   threads and delete user accounts for abuse.</p>
 <div class="subtitle">
